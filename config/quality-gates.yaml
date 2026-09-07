@@ -1,0 +1,9 @@
+# quality-gates.yaml
+#
+# Defines the quality gates that must pass before a project advances readiness levels (see Final Quality Gates).
+#
+# Status: draft / not yet implemented (v0.1 scaffold).
+# See ../ProjectFounder-idea.md for the full specification this config backs.
+
+version: 0.1
+status: draft

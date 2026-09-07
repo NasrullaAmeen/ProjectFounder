@@ -1,0 +1,9 @@
+# research-policy.yaml
+#
+# Defines research depth levels, evidence hierarchy, and freshness rules used by the Research Engine.
+#
+# Status: draft / not yet implemented (v0.1 scaffold).
+# See ../ProjectFounder-idea.md for the full specification this config backs.
+
+version: 0.1
+status: draft

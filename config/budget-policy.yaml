@@ -1,0 +1,9 @@
+# budget-policy.yaml
+#
+# Defines budget scenarios (ZERO_COST / MVP / Small / Medium / Large / Enterprise) and estimation rules used by the Budget Engine.
+#
+# Status: draft / not yet implemented (v0.1 scaffold).
+# See ../ProjectFounder-idea.md for the full specification this config backs.
+
+version: 0.1
+status: draft

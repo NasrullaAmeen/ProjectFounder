@@ -1,0 +1,9 @@
+# lifecycle.yaml
+#
+# Defines the project lifecycle states (IDEA -> ... -> ARCHIVED) and valid transitions used by the Lifecycle Engine.
+#
+# Status: draft / not yet implemented (v0.1 scaffold).
+# See ../ProjectFounder-idea.md for the full specification this config backs.
+
+version: 0.1
+status: draft

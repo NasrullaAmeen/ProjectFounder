@@ -1,0 +1,8 @@
+# roadmap.schema.yaml
+# JSON-Schema-style contract for the "roadmap" artifact/entity.
+# Status: draft / not yet implemented (v0.1 scaffold).
+$schema: "http://json-schema.org/draft-07/schema#"
+title: roadmap
+type: object
+properties: {}
+required: []

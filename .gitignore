@@ -1,0 +1,17 @@
+# Generated project outputs (keep the directory, ignore its contents)
+output/*
+!output/README.md
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+
+# Common dependency / build directories (added as the stack is chosen)
+node_modules/
+.venv/
+__pycache__/
+dist/
+build/
+.env
+.env.local

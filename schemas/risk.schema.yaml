@@ -1,0 +1,8 @@
+# risk.schema.yaml
+# JSON-Schema-style contract for the "risk" artifact/entity.
+# Status: draft / not yet implemented (v0.1 scaffold).
+$schema: "http://json-schema.org/draft-07/schema#"
+title: risk
+type: object
+properties: {}
+required: []

@@ -1,0 +1,9 @@
+# resource-types.yaml
+#
+# Defines resource categories (languages, frameworks, databases, AI providers, hosting, etc.) used by the Resource Engine.
+#
+# Status: draft / not yet implemented (v0.1 scaffold).
+# See ../ProjectFounder-idea.md for the full specification this config backs.
+
+version: 0.1
+status: draft

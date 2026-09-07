@@ -1,0 +1,9 @@
+# document-types.yaml
+#
+# Defines the document catalog and status model (REQUIRED / RECOMMENDED / OPTIONAL / NOT_APPLICABLE / DEFER / GENERATE_LATER) used by the Documentation Engine.
+#
+# Status: draft / not yet implemented (v0.1 scaffold).
+# See ../ProjectFounder-idea.md for the full specification this config backs.
+
+version: 0.1
+status: draft

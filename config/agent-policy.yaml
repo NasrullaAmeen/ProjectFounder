@@ -1,0 +1,9 @@
+# agent-policy.yaml
+#
+# Defines agent autonomy levels (L0-L5), permissions, and escalation rules used by the Agent Engine and Agent Governance.
+#
+# Status: draft / not yet implemented (v0.1 scaffold).
+# See ../ProjectFounder-idea.md for the full specification this config backs.
+
+version: 0.1
+status: draft
