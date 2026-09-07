@@ -11,8 +11,8 @@ Phase 0 is implemented as agent-executed contracts, not a program (`docs/DECISIO
 - `config/*.yaml` are still empty stubs except `lifecycle.yaml` and `project-types.yaml` — no policy is mechanically enforced.
 - `checks/`, `resources/` contain only READMEs describing what will eventually live there ("Status: not yet implemented"). `commands/` and `workflows/` now each have one real file (`new-project.md`); everything else planned for them is still just a README list.
 - `agents/*.md` (except `project-architect.md`) and all of `skills/*/` are still draft contracts with empty arrays, not runnable prompts/tools.
-- `examples/` is not yet populated with the worked bookmark-manager journey (§ 123).
-- `workflows/new-project.md` has not been exercised against a real idea yet — it's an untested contract, not a proven procedure (`docs/TASKS.md`).
+- `examples/bookmark-manager/` only covers § 123's Steps 1–3 (capture + classify) — Steps 4 onward (Discovery, Research, ...) aren't run because those engines don't exist yet.
+- Running the example surfaced a real taxonomy gap: § 123's own illustrative classification uses labels ("Search," "Data Platform," bare "AI," "Semantic Search") that aren't in § 28's taxonomy. Not fixed — see `docs/OPEN-QUESTIONS.md` Q9.
 
 ## No implementation stack chosen for anything beyond Phase 0's agent-only slice
 

@@ -15,7 +15,7 @@ workflow:
     - idea.md   # or an inline idea description if idea.md doesn't exist yet
   steps:
     - id: capture
-      does: "Write or confirm idea.md; create PROJECT.yaml from templates/core/PROJECT.yaml with a generated id/name; set lifecycle: CAPTURED."
+      does: "Write or confirm idea.md; create PROJECT.yaml from templates/core/PROJECT.yaml with a generated id/name; set created_at; set lifecycle: CAPTURED."
     - id: classify
       does: "Read config/project-types.yaml; assign one or more values per dimension (product/application/technical/ai/deployment) to PROJECT.yaml types; set intent (§ 27) and an initial complexity estimate (§ 116); set lifecycle: CLASSIFIED."
     - id: validate
@@ -32,6 +32,7 @@ workflow:
     - PROJECT.yaml conforms to schemas/project.schema.yaml
     - every value under `types` exists in config/project-types.yaml
     - lifecycle value exists in config/lifecycle.yaml states, reached via an allowed transition from the previous state
+    - created_at and updated_at are both set (§ 148)
   failure_recovery:
     - condition: idea is too vague to classify
       action: record open questions in the project's own OPEN-QUESTIONS.md (§ 111) rather than guessing a classification
@@ -46,7 +47,8 @@ workflow:
 1. If `idea.md` doesn't exist for this project yet, write it from what the user described.
 2. Copy `templates/core/PROJECT.yaml` to the project's root as `PROJECT.yaml`.
 3. Fill `id` (kebab-case slug) and `name`.
-4. Set `lifecycle: CAPTURED` (already the template default) — this is the first transition per `config/lifecycle.yaml` (`IDEA -> CAPTURED`).
+4. Set `created_at` to today's date; set `updated_at` to the same value (§ 148 requires both on every artifact).
+5. Set `lifecycle: CAPTURED` (already the template default) — this is the first transition per `config/lifecycle.yaml` (`IDEA -> CAPTURED`).
 
 ### 2. Classify
 
@@ -54,7 +56,7 @@ workflow:
 2. Set `intent` (§ 27). Default is `CREATE`; change it if the user's own words indicate otherwise (e.g. "clone", "rebuild", "improve an existing project").
 3. If `intent` is not `CREATE`, do **not** proceed to Discovery once this workflow ends — the § 163.2 Explore step runs first (not yet implemented; note it as the next step for the human).
 4. Set an initial `complexity` estimate (§ 116) — a first guess, refined later by the Gap Analysis / Architecture engines (not yet implemented).
-5. Advance `lifecycle: CLASSIFIED` (`CAPTURED -> CLASSIFIED` per `config/lifecycle.yaml`).
+5. Advance `lifecycle: CLASSIFIED` (`CAPTURED -> CLASSIFIED` per `config/lifecycle.yaml`) and bump `updated_at`.
 
 ### 3. Validate
 

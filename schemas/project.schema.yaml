@@ -16,7 +16,7 @@ required: [project]
 properties:
   project:
     type: object
-    required: [id, name, version, lifecycle, intent, readiness]
+    required: [id, name, version, lifecycle, intent, readiness, created_at, updated_at]
     properties:
       id:
         type: string
@@ -82,3 +82,11 @@ properties:
         type: string
         description: "§ 115 Documentation Depth."
         enum: [MINIMAL, STANDARD, DETAILED, FULL]
+      created_at:
+        type: string
+        format: date
+        description: "Set once, at capture (§ 123 Step 2). Every artifact carries this per § 148."
+      updated_at:
+        type: string
+        format: date
+        description: "Bumped on every write to this file. Per § 148."

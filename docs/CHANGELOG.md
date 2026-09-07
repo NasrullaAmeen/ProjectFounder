@@ -15,6 +15,14 @@ This changelog tracks ProjectFounder's own development (the repo you're reading)
 - Added the first real workflow and command: `workflows/new-project.md` (capture → classify → validate, stops at lifecycle `CLASSIFIED`) and `commands/new-project.md`.
 - Added `templates/core/PROJECT.yaml`, a fillable manifest template.
 
+### Added — worked example
+
+- `examples/bookmark-manager/`: ran `workflows/new-project.md` end-to-end against the § 123 canonical idea (`idea.md`, `PROJECT.yaml`, `NOTES.md`).
+
+### Fixed
+
+- `schemas/project.schema.yaml` and `templates/core/PROJECT.yaml` were missing `created_at`/`updated_at`, despite § 123 Step 2 and § 148 both requiring them. Found while building the worked example; added to the schema, template, and `workflows/new-project.md`'s capture/validate steps.
+
 ### Added
 
 - Meta-research report on improving ProjectFounder, sourced from blogs, GitHub, Hacker News, and Reddit (`docs/research/2026-09-08-projectfounder-deep-research.md`).

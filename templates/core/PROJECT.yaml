@@ -29,3 +29,5 @@ project:
   quality_profile: STANDARD
   research_depth: L1
   documentation_depth: STANDARD
+  created_at:                # set once, at capture (§ 123 Step 2) — YYYY-MM-DD
+  updated_at:                # bump on every write to this file
