@@ -22,6 +22,7 @@ This changelog tracks ProjectFounder's own development (the repo you're reading)
 ### Fixed
 
 - `schemas/project.schema.yaml` and `templates/core/PROJECT.yaml` were missing `created_at`/`updated_at`, despite § 123 Step 2 and § 148 both requiring them. Found while building the worked example; added to the schema, template, and `workflows/new-project.md`'s capture/validate steps.
+- § 123's own canonical classification used labels ("Search", "Data Platform", bare "AI", "Semantic Search") not in § 28's taxonomy. Added `ProjectFounder-idea.md` § 163.5 "Classification Escape Hatch" — a `types.other.<dimension>` free-text field alongside the enumerated `types.<dimension>` arrays — rather than extending § 28 on one project's evidence or dropping the information.
 
 ### Added
 

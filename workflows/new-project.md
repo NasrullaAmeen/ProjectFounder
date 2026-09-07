@@ -17,7 +17,7 @@ workflow:
     - id: capture
       does: "Write or confirm idea.md; create PROJECT.yaml from templates/core/PROJECT.yaml with a generated id/name; set created_at; set lifecycle: CAPTURED."
     - id: classify
-      does: "Read config/project-types.yaml; assign one or more values per dimension (product/application/technical/ai/deployment) to PROJECT.yaml types; set intent (§ 27) and an initial complexity estimate (§ 116); set lifecycle: CLASSIFIED."
+      does: "Read config/project-types.yaml; assign one or more values per dimension (product/application/technical/ai/deployment) to PROJECT.yaml types, using types.other.<dimension> (§ 163.5) for labels not in the taxonomy; set intent (§ 27) and an initial complexity estimate (§ 116); set lifecycle: CLASSIFIED."
     - id: validate
       does: 'Check the filled PROJECT.yaml against schemas/project.schema.yaml by hand (no validator exists yet — § 163.4 "judged", not "executable").'
   engines: [project-engine]        # § 7.1 — no other engine's inputs are needed for this slice
@@ -30,7 +30,7 @@ workflow:
       requires: human confirmation before continuing (see agents/project-architect.md escalation rules)
   validation:
     - PROJECT.yaml conforms to schemas/project.schema.yaml
-    - every value under `types` exists in config/project-types.yaml
+    - every value under `types.<dimension>` (not `types.other.<dimension>`) exists in config/project-types.yaml
     - lifecycle value exists in config/lifecycle.yaml states, reached via an allowed transition from the previous state
     - created_at and updated_at are both set (§ 148)
   failure_recovery:
@@ -52,7 +52,7 @@ workflow:
 
 ### 2. Classify
 
-1. Read `config/project-types.yaml`. For each dimension (`product`, `application`, `technical`, `ai`, `deployment`), decide which listed values apply — zero, one, or several are valid (§ 28: "multiple classifications may apply").
+1. Read `config/project-types.yaml`. For each dimension (`product`, `application`, `technical`, `ai`, `deployment`), decide which listed values apply — zero, one, or several are valid (§ 28: "multiple classifications may apply"). If the idea genuinely needs a label that isn't in the taxonomy, put it under `types.other.<dimension>` (§ 163.5) — don't invent a new enumerated value and don't drop the information.
 2. Set `intent` (§ 27). Default is `CREATE`; change it if the user's own words indicate otherwise (e.g. "clone", "rebuild", "improve an existing project").
 3. If `intent` is not `CREATE`, do **not** proceed to Discovery once this workflow ends — the § 163.2 Explore step runs first (not yet implemented; note it as the next step for the human).
 4. Set an initial `complexity` estimate (§ 116) — a first guess, refined later by the Gap Analysis / Architecture engines (not yet implemented).

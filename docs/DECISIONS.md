@@ -155,6 +155,44 @@ decision:
     - templates/core/PROJECT.yaml
 ```
 
+### D006 — Add a classification escape hatch instead of extending § 28 or dropping labels
+
+```yaml
+decision:
+  id: D006
+  title: Resolve docs/OPEN-QUESTIONS.md Q9 — § 28 taxonomy gap found via the bookmark-manager example
+  context: >
+    Building examples/bookmark-manager/ showed that § 123's own canonical
+    classification uses labels ("Search", "Data Platform", bare "AI",
+    "Semantic Search") absent from § 28's five taxonomies. Left as-is, an
+    agent classifying a project must either drop real information or
+    silently invent a taxonomy value.
+  options:
+    - Extend § 28's enumerated lists to add the missing labels
+    - Treat § 123's classification as loosely illustrative, not literal, and change nothing
+    - Add a `types.other.<dimension>` free-text field alongside the enumerated one (§ 163.5)
+  selected: Add the `other` escape hatch (§ 163.5)
+  rationale: >
+    Extending § 28 on the evidence of one project's labels risks taxonomy
+    bloat from one-off terms (§ 139: "create unnecessary complexity").
+    Treating § 123 as "just illustrative" quietly excuses the spec's own
+    canonical example from matching its own taxonomy, which is worse than
+    fixing it. `other` preserves information without touching § 28's
+    enumerated list at all — recurring `other` labels become the evidence
+    base for a future, deliberate § 28 amendment instead of one-off drift.
+  evidence: examples/bookmark-manager/NOTES.md
+  confidence: MEDIUM
+  reversibility: EASY
+  approval: RECOMMEND
+  dependencies: []
+  affected_artifacts:
+    - "ProjectFounder-idea.md § 163.5"
+    - schemas/project.schema.yaml
+    - templates/core/PROJECT.yaml
+    - workflows/new-project.md
+    - examples/bookmark-manager/PROJECT.yaml
+```
+
 ## Conventions
 
 - Add a new `D0NN` entry per decision that would be non-obvious from the diff alone — not for every commit.

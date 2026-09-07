@@ -12,7 +12,7 @@ Phase 0 is implemented as agent-executed contracts, not a program (`docs/DECISIO
 - `checks/`, `resources/` contain only READMEs describing what will eventually live there ("Status: not yet implemented"). `commands/` and `workflows/` now each have one real file (`new-project.md`); everything else planned for them is still just a README list.
 - `agents/*.md` (except `project-architect.md`) and all of `skills/*/` are still draft contracts with empty arrays, not runnable prompts/tools.
 - `examples/bookmark-manager/` only covers § 123's Steps 1–3 (capture + classify) — Steps 4 onward (Discovery, Research, ...) aren't run because those engines don't exist yet.
-- Running the example surfaced a real taxonomy gap: § 123's own illustrative classification uses labels ("Search," "Data Platform," bare "AI," "Semantic Search") that aren't in § 28's taxonomy. Not fixed — see `docs/OPEN-QUESTIONS.md` Q9.
+- The § 163.5 classification escape hatch (`types.other.<dimension>`) is new and only exercised by this one example — it hasn't been tested against a project whose labels don't fit even loosely into the five existing dimensions at all.
 
 ## No implementation stack chosen for anything beyond Phase 0's agent-only slice
 

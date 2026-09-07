@@ -62,6 +62,15 @@ properties:
           deployment:
             type: array
             items: { type: string }
+          other:
+            type: object
+            description: "§ 163.5 escape hatch — free-text labels per dimension that aren't in config/project-types.yaml's enumerated list. Never merge these into the plain dimension arrays above; a recurring `other` label is a signal to amend § 28, not to drift silently."
+            properties:
+              product: { type: array, items: { type: string } }
+              application: { type: array, items: { type: string } }
+              technical: { type: array, items: { type: string } }
+              ai: { type: array, items: { type: string } }
+              deployment: { type: array, items: { type: string } }
       complexity:
         type: string
         description: "§ 116 Complexity Estimation."

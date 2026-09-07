@@ -26,7 +26,7 @@ In progress. Stack decision resolved (`docs/DECISIONS.md` D005): agent-executed 
 - [x] `done` — First real agent contract: `agents/project-architect.md` fleshed out with concrete inputs/outputs/permissions/escalation.
 - [x] `done` — First real workflow + command: `workflows/new-project.md` (capture → classify → validate, stops at `CLASSIFIED`) and `commands/new-project.md`.
 - [ ] `todo` — "Schema validation loader" / "Configuration/policy loader" as originally scoped (a program that reads `schemas/*.schema.yaml` / `config/*.yaml` and validates automatically) — deliberately not built; Phase 0 validation is agent-judged per D005. Revisit if/when this stops scaling (`docs/OPEN-QUESTIONS.md` Q2).
-- [x] `done` — Exercised `workflows/new-project.md` end-to-end against the § 123 bookmark-manager idea: `examples/bookmark-manager/`. Found and fixed a real gap (missing `created_at`/`updated_at` in the schema/template). Found and logged, but didn't silently fix, a taxonomy gap (`docs/OPEN-QUESTIONS.md` Q9) — see `examples/bookmark-manager/NOTES.md`.
+- [x] `done` — Exercised `workflows/new-project.md` end-to-end against the § 123 bookmark-manager idea: `examples/bookmark-manager/`. Found and fixed a real gap (missing `created_at`/`updated_at` in the schema/template). Found and fixed a second gap via § 163.5 (classification escape hatch, `docs/DECISIONS.md` D006) — see `examples/bookmark-manager/NOTES.md`.
 
 ## Phases 1–8
 

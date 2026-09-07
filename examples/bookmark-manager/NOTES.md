@@ -35,13 +35,17 @@ Checked against `config/project-types.yaml` (which is copied verbatim from § 28
 | Semantic Search | AI | **No** — not a listed value |
 | Cloud, Self-Hosted | Deployment | Yes |
 
-**This PROJECT.yaml uses only real `config/project-types.yaml` values** — `product: [SaaS, Freemium, Open Source]`, `technical: [Platform]`, `ai: [RAG]` — rather than reproducing § 123's own out-of-taxonomy labels. That's a real information loss: "Search," "Data Platform," "AI," and "Semantic Search" all get flattened or dropped because § 28's taxonomy has no slot for them.
+Originally, this `PROJECT.yaml` used only real `config/project-types.yaml` values — `technical: [Platform]`, `ai: [RAG]` — dropping "Search," "Data Platform," "AI," and "Semantic Search" because § 28's taxonomy had no slot for them.
+
+## Resolved: § 163.5 Classification Escape Hatch
+
+Rather than extending § 28's enumerated list unilaterally (silent drift) or continuing to drop the information, `ProjectFounder-idea.md` § 163.5 adds a `types.other.<dimension>` free-text field. This `PROJECT.yaml` now carries `other.technical: [Search, "Data Platform"]` and `other.ai: [AI, "Semantic Search"]` — the enumerated values stay exactly as § 28 specifies, and nothing from the original idea's classification is lost. `docs/OPEN-QUESTIONS.md` Q9 is resolved to this; `docs/DECISIONS.md` D006 has the full rationale.
 
 ## Fixed vs. not fixed
 
 - **Fixed**: `schemas/project.schema.yaml` and `templates/core/PROJECT.yaml` were missing `created_at`/`updated_at`, even though § 123 Step 2 says capture creates one and § 148 requires both on every artifact. Added both — see `docs/CHANGELOG.md`.
-- **Not fixed**: the § 28 / § 123 taxonomy mismatch above. Extending `config/project-types.yaml` unilaterally would mean diverging from § 28's literal wording without a called-out amendment (`AGENTS.md`: "the spec is canonical... never silently drift"). Logged as `docs/OPEN-QUESTIONS.md` Q9 instead of guessing a fix.
+- **Fixed**: the § 28 / § 123 taxonomy mismatch, via the § 163.5 escape hatch above.
 
 ## Takeaway
 
-The capture/classify/validate mechanics in `workflows/new-project.md` held up. The gap is upstream, in the spec's own § 28 taxonomy being narrower than the illustrative classification it uses for its own canonical example — worth a real decision (extend § 28, treat § 123 as loosely illustrative, or add a free-text `other` escape hatch per dimension) rather than a quiet workaround.
+The capture/classify/validate mechanics in `workflows/new-project.md` held up on first exercise. Both gaps this exercise surfaced were spec-level (a missing artifact field, a taxonomy that didn't cover its own canonical example) rather than workflow-procedure bugs — which is the value of actually running a worked example instead of only reading the contracts.

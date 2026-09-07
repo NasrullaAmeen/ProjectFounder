@@ -987,6 +987,8 @@ SCALE
 
 # 28. Project Classification
 
+> See § 163.5 for the v0.1.1 amendment adding a free-text `other` escape hatch per dimension, for labels a real project needs that aren't enumerated below.
+
 Classification is multidimensional.
 
 ## Product
@@ -4895,3 +4897,26 @@ THEN  <observable outcome>
 ```
 
 The Validation Engine (§ 13) classifies each acceptance criterion as `executable` (compiles to a check under `checks/` — a test or a fitness function) or `judged` (no mechanical check exists yet; LLM/human review is the only gate). Final Quality Gates (§ 135, Requirements subsection) and Definition of Ready (§ 96) both report the executable/judged ratio for a project's acceptance criteria, not just their existence — "acceptance criteria exist" (§ 135) becomes "acceptance criteria exist, `<n>` of which are executable."
+
+## 163.5 Classification Escape Hatch
+
+Amends: § 28 Project Classification.
+
+Problem: found by dogfooding, not external research. Building `examples/bookmark-manager/` (this repo's own worked example) against § 123's own canonical classification showed that § 28's five taxonomies don't cover every real label a project might need — § 123 Step 3 itself uses "Search," "Data Platform," bare "AI," and "Semantic Search," none of which are enumerated values in § 28. Without an escape hatch, an agent classifying a project either drops real information (flattening "Semantic Search" into the nearest enumerated value, `RAG`) or silently invents a new taxonomy value (drifting from § 28 without a called-out amendment — forbidden by `AGENTS.md`).
+
+Each of § 28's five dimensions (`product`, `application`, `technical`, `ai`, `deployment`) may additionally carry free-text labels that aren't in the enumerated list, under a sibling `other` object — not by extending the enumerated arrays themselves:
+
+```yaml
+project:
+  types:
+    product: [SaaS]        # only § 28 enumerated values
+    technical: [Platform]
+    ai: [RAG]
+    other:
+      technical: [Search, "Data Platform"]
+      ai: [AI, "Semantic Search"]
+```
+
+This keeps § 28's canonical list exactly as specified — nothing is silently added to it — while not losing information a real idea actually contains. `other` entries are a signal, not noise: if the same free-text label recurs across multiple projects, that's evidence § 28 itself should gain an enumerated value, via a normal called-out spec amendment (see § 163's own pattern), not by the taxonomy growing unboundedly one label at a time.
+
+Artifact Contract (§ 148) is unaffected; this only changes the shape of the `types` field already introduced for `PROJECT.yaml` (§ 120).

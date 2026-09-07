@@ -19,11 +19,17 @@ project:
   mode:                      # set once mode is known; may be empty until Discovery
   intent: CREATE             # § 27 — change if this isn't a from-scratch project
   types:
-    product: []
+    product: []               # values only from config/project-types.yaml
     application: []
     technical: []
     ai: []
     deployment: []
+    other:                    # § 163.5 escape hatch — free-text labels not in config/project-types.yaml
+      product: []
+      application: []
+      technical: []
+      ai: []
+      deployment: []
   complexity:                # LOW | MEDIUM | HIGH | VERY_HIGH — initial estimate, refine later
   readiness: R0               # R0 until Discovery/Explore work has happened
   quality_profile: STANDARD
