@@ -2,8 +2,6 @@
   <img src="assets/icon.jpeg" alt="ProjectFounder icon" width="480">
 </p>
 
-<h1 align="center">ProjectFounder</h1>
-
 <p align="center">
   <b>AI-Native Project Intelligence, Research, Architecture, Specification, Budgeting, Documentation, and Implementation Planning System</b>
 </p>
