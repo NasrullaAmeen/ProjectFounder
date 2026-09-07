@@ -1,9 +1,58 @@
 # project-types.yaml
 #
-# Defines the multidimensional project classification taxonomy (Product / Application / Technical / AI / Deployment) used by the Project Engine.
+# Defines the multidimensional project classification taxonomy (Product /
+# Application / Technical / AI / Deployment) used by the Project Engine
+# (ProjectFounder-idea.md § 28). Multiple values per dimension may apply to
+# a single project.
 #
-# Status: draft / not yet implemented (v0.1 scaffold).
-# See ../ProjectFounder-idea.md for the full specification this config backs.
+# Status: Phase 0 (§140) — the taxonomy below is real data; classification
+# is currently applied by an agent reading this file, not by an engine.
 
 version: 0.1
 status: draft
+
+dimensions:
+  product:
+    - SaaS
+    - B2B
+    - B2C
+    - Freemium
+    - Open Source
+    - Open Core
+    - Enterprise
+    - Internal
+    - Marketplace
+    - Platform
+  application:
+    - Web
+    - PWA
+    - Mobile
+    - Desktop
+    - Browser Extension
+    - CLI
+    - API
+  technical:
+    - Library
+    - SDK
+    - Framework
+    - Database
+    - Infrastructure
+    - Protocol
+    - Service
+    - Platform
+  ai:
+    - AI SaaS
+    - AI Agent
+    - Multi-Agent
+    - Agent Platform
+    - MCP
+    - RAG
+    - AI API
+    - AI Skill
+  deployment:
+    - Cloud
+    - Self-Hosted
+    - Local-First
+    - Offline-First
+    - Hybrid
+    - Edge

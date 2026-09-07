@@ -117,6 +117,44 @@ decision:
   affected_artifacts: [docs/DECISIONS.md, docs/ASSUMPTIONS.md, docs/CONSTRAINTS.md, docs/NON-GOALS.md, docs/OPEN-QUESTIONS.md, docs/LIMITATIONS.md, docs/REFERENCES.md]
 ```
 
+### D005 — Implement Phase 0 as agent-executed contracts, no code yet
+
+```yaml
+decision:
+  id: D005
+  title: Resolve docs/OPEN-QUESTIONS.md Q1 — Phase 0 stack choice
+  context: >
+    Phase 0 (§ 140: project model, manifest, schemas, configuration, state,
+    lifecycle) needed an implementation approach before any of it could be
+    built. AGENTS.md forbids inventing a stack unilaterally; this had to be
+    surfaced as a decision.
+  options:
+    - TypeScript/Node.js (real code: schema validation, a small CLI, tests)
+    - Python (real code, same scope)
+    - Agent-only: Claude Code commands/skills/workflows read/write YAML and Markdown directly, validation is an agent reasoning over a schema file, no interpreter/runtime chosen yet
+  selected: Agent-only, no code yet
+  rationale: >
+    Matches § 136 "smallest executable version of the architecture" and
+    keeps § 4.1 (Technology Is Data) maximally intact — no language commits
+    Phase 0 to an ecosystem before any engine actually needs deterministic
+    logic an agent can't do by reading files and following instructions.
+    Revisit once an engine needs real validation/state logic (see
+    docs/OPEN-QUESTIONS.md Q2 for when that might be).
+  evidence: N/A (architectural judgment call, not externally sourced)
+  confidence: MEDIUM
+  reversibility: MODERATE
+  approval: RECOMMEND
+  dependencies: [D004]
+  affected_artifacts:
+    - schemas/project.schema.yaml
+    - config/lifecycle.yaml
+    - config/project-types.yaml
+    - agents/project-architect.md
+    - workflows/new-project.md
+    - commands/new-project.md
+    - templates/core/PROJECT.yaml
+```
+
 ## Conventions
 
 - Add a new `D0NN` entry per decision that would be non-obvious from the diff alone — not for every commit.

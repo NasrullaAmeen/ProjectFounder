@@ -1,0 +1,31 @@
+# PROJECT.yaml template
+#
+# Fill this in when founding a new project (see workflows/new-project.md).
+# Validate against schemas/project.schema.yaml before treating it as
+# complete — until a real validator exists (§ 163.4), that means an agent
+# reading both files and checking by hand, not running a tool.
+#
+# Enum values below (lifecycle, mode, intent, complexity, readiness,
+# quality_profile, research_depth, documentation_depth) must come from
+# schemas/project.schema.yaml; classification `types` values must come
+# from config/project-types.yaml.
+
+project:
+  id:                        # kebab-case slug, e.g. bookmark-manager
+  name:                      # human-readable name
+  version: "0.1"
+  status:                    # free-text note, optional
+  lifecycle: CAPTURED        # set by workflows/new-project.md step 1
+  mode:                      # set once mode is known; may be empty until Discovery
+  intent: CREATE             # § 27 — change if this isn't a from-scratch project
+  types:
+    product: []
+    application: []
+    technical: []
+    ai: []
+    deployment: []
+  complexity:                # LOW | MEDIUM | HIGH | VERY_HIGH — initial estimate, refine later
+  readiness: R0               # R0 until Discovery/Explore work has happened
+  quality_profile: STANDARD
+  research_depth: L1
+  documentation_depth: STANDARD

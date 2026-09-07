@@ -1,8 +1,84 @@
 # project.schema.yaml
-# JSON-Schema-style contract for the "project" artifact/entity.
-# Status: draft / not yet implemented (v0.1 scaffold).
+# JSON-Schema-style contract for the "project" artifact/entity (PROJECT.yaml).
+#
+# Status: Phase 0 (§140) — the schema itself is real; nothing executes
+# validation against it yet (no engine exists). Until a validator exists,
+# an agent following AGENT.md/AGENTS.md checks a PROJECT.yaml against this
+# file by reading both and reasoning about them — this is a "judged" check
+# in § 163.4 terms, not an "executable" one.
+#
+# Backs: ProjectFounder-idea.md § 7.1 (Project Engine), § 120 (Project
+# Manifest), § 148 (Artifact Contract).
 $schema: "http://json-schema.org/draft-07/schema#"
 title: project
 type: object
-properties: {}
-required: []
+required: [project]
+properties:
+  project:
+    type: object
+    required: [id, name, version, lifecycle, intent, readiness]
+    properties:
+      id:
+        type: string
+        description: Stable, unique project identifier (kebab-case slug).
+      name:
+        type: string
+        description: Human-readable project name.
+      version:
+        type: string
+        description: PROJECT.yaml schema version this file was written against.
+        default: "0.1"
+      status:
+        type: string
+        description: Free-text status note. Not the same axis as lifecycle or readiness.
+      lifecycle:
+        type: string
+        description: Current stage in the Lifecycle Engine (§ 25). See config/lifecycle.yaml for the state machine.
+        enum: [IDEA, CAPTURED, CLASSIFIED, DISCOVERY, RESEARCHING, DESIGNING, SPECIFYING, VALIDATING, READY, BUILDING, TESTING, BETA, PRODUCTION, OPERATING, EVOLVING, ARCHIVED]
+      mode:
+        type: string
+        description: Current operating mode (§ 26).
+        enum: [DISCOVERY, RESEARCH, ARCHITECTURE, IMPLEMENTATION, AUDIT, MIGRATION, OPTIMIZATION, SCALE, MAINTENANCE]
+      intent:
+        type: string
+        description: Why this project exists (§ 27). A non-CREATE intent triggers the § 163.2 Explore step before Discovery.
+        enum: [CREATE, IMPROVE, REBUILD, CLONE, REVERSE_ENGINEER, MIGRATE, EXTEND, OPTIMIZE, COMPARE, RESEARCH, AUDIT, DOCUMENT, VALIDATE, SCALE]
+      types:
+        type: object
+        description: Multidimensional classification (§ 28). Multiple values per dimension may apply; see config/project-types.yaml for the full taxonomy.
+        properties:
+          product:
+            type: array
+            items: { type: string }
+          application:
+            type: array
+            items: { type: string }
+          technical:
+            type: array
+            items: { type: string }
+          ai:
+            type: array
+            items: { type: string }
+          deployment:
+            type: array
+            items: { type: string }
+      complexity:
+        type: string
+        description: "§ 116 Complexity Estimation."
+        enum: [LOW, MEDIUM, HIGH, VERY_HIGH]
+      readiness:
+        type: string
+        description: "§ 30 Readiness Levels."
+        enum: [R0, R1, R2, R3, R4, R5, R6, R7]
+      quality_profile:
+        type: string
+        description: "§ 113 Quality Profiles — controls depth, not correctness."
+        enum: [MINIMAL, STANDARD, DETAILED, PRODUCTION, ENTERPRISE, RESEARCH]
+      research_depth:
+        type: string
+        description: "§ 114 Research Depth."
+        enum: [L0, L1, L2, L3]
+      documentation_depth:
+        type: string
+        description: "§ 115 Documentation Depth."
+        enum: [MINIMAL, STANDARD, DETAILED, FULL]

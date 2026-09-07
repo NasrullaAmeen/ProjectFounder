@@ -6,6 +6,15 @@ This changelog tracks ProjectFounder's own development (the repo you're reading)
 
 ## [Unreleased]
 
+### Added — Phase 0 (§ 140)
+
+- Resolved the Phase 0 stack decision (`docs/OPEN-QUESTIONS.md` Q1 → `docs/DECISIONS.md` D005): agent-executed contracts, no code, until an engine needs deterministic logic an agent can't do by reading files.
+- Fleshed out `schemas/project.schema.yaml` (full `PROJECT.yaml` shape: lifecycle, mode, intent, classification, complexity, readiness, quality/research/documentation depth).
+- Fleshed out `config/lifecycle.yaml` (§ 25 lifecycle states + linear transitions) and `config/project-types.yaml` (§ 28 classification taxonomy).
+- Fleshed out the `project-architect` agent contract (`agents/project-architect.md`) with concrete inputs, outputs, permissions, and escalation rules.
+- Added the first real workflow and command: `workflows/new-project.md` (capture → classify → validate, stops at lifecycle `CLASSIFIED`) and `commands/new-project.md`.
+- Added `templates/core/PROJECT.yaml`, a fillable manifest template.
+
 ### Added
 
 - Meta-research report on improving ProjectFounder, sourced from blogs, GitHub, Hacker News, and Reddit (`docs/research/2026-09-08-projectfounder-deep-research.md`).

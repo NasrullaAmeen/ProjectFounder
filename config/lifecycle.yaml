@@ -1,9 +1,55 @@
 # lifecycle.yaml
 #
-# Defines the project lifecycle states (IDEA -> ... -> ARCHIVED) and valid transitions used by the Lifecycle Engine.
+# Defines the project lifecycle states (IDEA -> ... -> ARCHIVED) and valid
+# transitions used by the Lifecycle Engine (ProjectFounder-idea.md § 25).
 #
-# Status: draft / not yet implemented (v0.1 scaffold).
-# See ../ProjectFounder-idea.md for the full specification this config backs.
+# Status: Phase 0 (§140) — the state machine below is real data; no engine
+# enforces these transitions yet. An agent moving a project between states
+# checks this file directly rather than calling a validator.
 
 version: 0.1
 status: draft
+
+initial_state: IDEA
+
+states:
+  - IDEA
+  - CAPTURED
+  - CLASSIFIED
+  - DISCOVERY
+  - RESEARCHING
+  - DESIGNING
+  - SPECIFYING
+  - VALIDATING
+  - READY
+  - BUILDING
+  - TESTING
+  - BETA
+  - PRODUCTION
+  - OPERATING
+  - EVOLVING
+  - ARCHIVED
+
+# Baseline transitions, exactly as diagrammed in § 25 (linear, one direction
+# per state). The spec's diagram does not itself specify loop-backs (e.g. a
+# failed VALIDATING returning to SPECIFYING) or early exits to ARCHIVED from
+# a non-terminal state, so none are encoded here — see
+# docs/OPEN-QUESTIONS.md Q8 rather than inventing transition rules the spec
+# doesn't state.
+transitions:
+  IDEA: [CAPTURED]
+  CAPTURED: [CLASSIFIED]
+  CLASSIFIED: [DISCOVERY]
+  DISCOVERY: [RESEARCHING]
+  RESEARCHING: [DESIGNING]
+  DESIGNING: [SPECIFYING]
+  SPECIFYING: [VALIDATING]
+  VALIDATING: [READY]
+  READY: [BUILDING]
+  BUILDING: [TESTING]
+  TESTING: [BETA]
+  BETA: [PRODUCTION]
+  PRODUCTION: [OPERATING]
+  OPERATING: [EVOLVING]
+  EVOLVING: [ARCHIVED]
+  ARCHIVED: []

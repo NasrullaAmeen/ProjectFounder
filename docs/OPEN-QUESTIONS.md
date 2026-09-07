@@ -6,13 +6,14 @@ Per `ProjectFounder-idea.md` § 111: "unknown information should become OPEN-QUE
 
 | # | Question | Status | Blocks |
 |---|---|---|---|
-| Q1 | What language/framework/package manager/test runner implements Phase 0 (§ 140)? | `blocking` | All Phase 0 work (`docs/TASKS.md`) |
+| Q1 | What language/framework/package manager/test runner implements Phase 0 (§ 140)? | `resolved` — agent-executed, no code for now; see `docs/DECISIONS.md` D005 | — |
 | Q2 | Should `docs/TASKS.md` (this repo's own backlog) eventually be replaced by a real Task Engine instance once one exists, or stay hand-maintained permanently since it tracks meta-work, not project work? | `open` | Nothing yet |
 | Q3 | P1 research recommendations (context persistence via Memory Engine § 23; anti-drift loop via Feedback/Validation) haven't been turned into spec amendments yet — should they follow the same § 163.x pattern, or wait until Phase 1/2 makes them concrete? | `open` | Nothing yet — noted in `docs/TASKS.md` |
 | Q4 | P2 research recommendations ("actions not phases" wording for the Workflow Engine § 20; a retrospective/feedback lifecycle step) — same question as Q3. | `open` | Nothing yet |
 | Q5 | § 163.1's `delta` mode introduces `changes/<change-id>/` and an `archive` step — what triggers archive (human command, automatic on approval, scheduled)? Not yet specified. | `open` | Phase 2+ (Change-Impact Engine implementation) |
 | Q6 | § 163.2's Explore step reuses the Research Engine with `source: codebase` — does it need its own skill under `skills/`, or is it a parameter to the existing `research` skill? | `open` | Phase 1/2 (Research Engine implementation) |
 | Q7 | Now that `docs/` exists for this repo's own artifacts, should `templates/` gain a matching "meta" template category, or do these docs stay hand-written since they're about ProjectFounder itself, not a generated project? | `open` | Nothing yet |
+| Q8 | `config/lifecycle.yaml`'s transition table (§ 25) is strictly linear, exactly as diagrammed. The spec doesn't say whether a project can loop back (e.g. failed `VALIDATING` → `SPECIFYING`) or archive early from a non-terminal state. Real usage will need one of these; which? | `open` | `workflows/new-project.md` only reaches `CLASSIFIED`, so not blocking yet — will block once a workflow needs to move a project backward or archive it early |
 
 ## Conventions
 

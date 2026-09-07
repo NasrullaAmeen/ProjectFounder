@@ -17,13 +17,16 @@ Status values: `todo`, `in-progress`, `done`, `deferred`.
 
 ## Phase 0 — Foundation (spec § 140)
 
-Not started. Blocked on a stack decision (language/framework/package manager) — per `AGENTS.md`, this must be surfaced as a Decision Engine (§ 34) choice, not picked unilaterally.
+In progress. Stack decision resolved (`docs/DECISIONS.md` D005): agent-executed contracts, no code, until an engine needs deterministic logic beyond what an agent can do by reading files.
 
-- [ ] `todo` — Decide implementation stack (language, package manager, test runner).
-- [ ] `todo` — Project model + `PROJECT.yaml` manifest (§ 120).
-- [ ] `todo` — Schema validation loader for `schemas/*.schema.yaml` (currently empty stubs).
-- [ ] `todo` — Configuration/policy loader for `config/*.yaml` (currently empty stubs).
-- [ ] `todo` — Project state + lifecycle (§ 29, § 25).
+- [x] `done` — Decide implementation stack — resolved as agent-only for now (D005).
+- [x] `done` — Project model + `PROJECT.yaml` manifest (§ 120): `schemas/project.schema.yaml` fleshed out, `templates/core/PROJECT.yaml` fillable template added.
+- [x] `done` — Project classification taxonomy (§ 28): `config/project-types.yaml` fleshed out.
+- [x] `done` — Lifecycle state machine (§ 25): `config/lifecycle.yaml` fleshed out (linear, per the spec's diagram — see `docs/OPEN-QUESTIONS.md` Q8 for loop-back/early-archive, not yet resolved).
+- [x] `done` — First real agent contract: `agents/project-architect.md` fleshed out with concrete inputs/outputs/permissions/escalation.
+- [x] `done` — First real workflow + command: `workflows/new-project.md` (capture → classify → validate, stops at `CLASSIFIED`) and `commands/new-project.md`.
+- [ ] `todo` — "Schema validation loader" / "Configuration/policy loader" as originally scoped (a program that reads `schemas/*.schema.yaml` / `config/*.yaml` and validates automatically) — deliberately not built; Phase 0 validation is agent-judged per D005. Revisit if/when this stops scaling (`docs/OPEN-QUESTIONS.md` Q2).
+- [ ] `todo` — Exercise `workflows/new-project.md` on a real idea end-to-end and fix whatever the contract gets wrong in practice.
 
 ## Phases 1–8
 

@@ -2,20 +2,21 @@
 
 > **In plain terms:** this is what ProjectFounder cannot actually do yet, stated plainly so nobody assumes more capability than exists. Per § 110: "unknown limitations should not be hidden" — this file exists so none are.
 
-## Nothing executes yet
+## Nothing executes as code
 
-This is a v0.1 **scaffold** — contracts, schemas, and configuration exist as drafts; no engine, workflow, or orchestration runtime is implemented:
+Phase 0 is implemented as agent-executed contracts, not a program (`docs/DECISIONS.md` D005) — there is no interpreter/runtime, no CLI, and no automated validation. "Implemented" for `project-architect`/`new-project` means a coding agent follows the contract by reading it; nothing here runs unattended.
 
-- All 20 engines in § 7 (Complete Engine Inventory) are specification only — no code.
-- `schemas/*.schema.yaml` are empty stubs (`properties: {}`) — nothing validates against them yet.
-- `config/*.yaml` are empty stubs — no policy is actually enforced.
-- `checks/`, `commands/`, `workflows/`, `resources/` contain only READMEs describing what will eventually live there ("Status: not yet implemented").
-- `agents/*.md` and `skills/*/` are draft contracts, not runnable prompts/tools.
+- 19 of 20 engines in § 7 (Complete Engine Inventory) are specification only — no agent contract or workflow exists for them yet. Only the Project Engine (§ 7.1) has a working slice (`agents/project-architect.md`, `workflows/new-project.md`).
+- `schemas/*.schema.yaml` are still empty stubs (`properties: {}`) except `project.schema.yaml` — nothing validates against any of them mechanically; even `project.schema.yaml` is checked by an agent reading it, not a validator.
+- `config/*.yaml` are still empty stubs except `lifecycle.yaml` and `project-types.yaml` — no policy is mechanically enforced.
+- `checks/`, `resources/` contain only READMEs describing what will eventually live there ("Status: not yet implemented"). `commands/` and `workflows/` now each have one real file (`new-project.md`); everything else planned for them is still just a README list.
+- `agents/*.md` (except `project-architect.md`) and all of `skills/*/` are still draft contracts with empty arrays, not runnable prompts/tools.
 - `examples/` is not yet populated with the worked bookmark-manager journey (§ 123).
+- `workflows/new-project.md` has not been exercised against a real idea yet — it's an untested contract, not a proven procedure (`docs/TASKS.md`).
 
-## No implementation stack chosen
+## No implementation stack chosen for anything beyond Phase 0's agent-only slice
 
-Phase 0 (§ 140) hasn't started — see `docs/OPEN-QUESTIONS.md` Q1. Nothing in this repo can currently be run, tested, or built; there is no build/test tooling (`AGENTS.md` "this repo has no build/test tooling yet").
+Q1 (`docs/OPEN-QUESTIONS.md`) is resolved for Phase 0 specifically (agent-only, D005), not for the project as a whole — if/when an engine needs real deterministic logic, the stack question reopens (Q2). Nothing in this repo can currently be run, tested, or built as software; there is no build/test tooling (`AGENTS.md` "this repo has no build/test tooling yet").
 
 ## The spec itself is large and partly untested against reality
 
