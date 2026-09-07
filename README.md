@@ -86,6 +86,7 @@ ProjectFounder/
 ├── AGENTS.md                 # Repo-wide conventions for any coding agent working in this repo
 ├── CLAUDE.md                 # Claude Code-specific adapter
 ├── ProjectFounder-idea.md    # Canonical v0.1 specification (the primary artifact)
+├── docs/                     # This repo's own docs (CHANGELOG, TASKS, meta-research) — not project output
 ├── config/                   # Policy configuration (research, budget, AI, agent, lifecycle, …)
 ├── agents/                   # Agent role contracts (research-agent, architecture-agent, …)
 ├── skills/                   # Reusable skill procedures (research, gap-analysis, security, …)
@@ -105,6 +106,10 @@ This mirrors the structure defined in `ProjectFounder-idea.md` § *Repository St
 ## Status
 
 This repository is currently a **v0.1 scaffold**: the full directory structure, agent/skill/schema contracts, and configuration surface exist as drafts, matching the specification in `ProjectFounder-idea.md`. Engine implementations, workflow execution, and the orchestration runtime are **not yet implemented** — see `ProjectFounder-idea.md` § *v0.1 Minimum Viable Definition* and § *v0.1 Implementation Phases* for the build order.
+
+The spec has one amendment set so far — `ProjectFounder-idea.md` § 163 *v0.1.1 Amendments*, informed by external research on the spec-driven-development field (`docs/research/`) — covering delta-scoped changes, brownfield exploration, human-readable artifacts, and executable validation.
+
+See [`docs/TASKS.md`](./docs/TASKS.md) for the current build backlog and [`docs/CHANGELOG.md`](./docs/CHANGELOG.md) for what's landed.
 
 ## License
 

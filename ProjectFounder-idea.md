@@ -837,6 +837,8 @@ tasks
 
 # 21. Change-Impact Engine
 
+> See § 163.1 for the v0.1.1 delta-spec amendment (change-scoped artifacts instead of whole-project regeneration).
+
 When something changes, ProjectFounder determines:
 
 ```text
@@ -959,6 +961,8 @@ MAINTENANCE
 ---
 
 # 27. Project Intent
+
+> See § 163.2 for the v0.1.1 amendment adding an Explore step before Discovery for any non-`CREATE` intent.
 
 Supported intents:
 
@@ -4192,7 +4196,11 @@ ProjectFounder/
 ├── CLAUDE.md
 ├── README.md
 ├── LICENSE
-├── CHANGELOG.md
+│
+├── docs/
+│   ├── CHANGELOG.md          # this repo's own changelog (not a project artifact)
+│   ├── TASKS.md              # this repo's own build backlog (not TASKS.md, § 91)
+│   └── research/             # meta-research about ProjectFounder itself
 │
 ├── config/
 │   ├── project-types.yaml
@@ -4782,3 +4790,101 @@ It is:
 **This is the v0.1 foundation.**
 
 This version keeps the architecture broad while defining **exactly what is executable in v0.1**, and it establishes the implementation contract so ProjectFounder can later evolve without rewriting its core.
+
+---
+
+# 163. v0.1.1 Amendments — Research-Driven Additions
+
+Added 2026-09-08, informed by `docs/research/2026-09-08-projectfounder-deep-research.md` (external evidence from spec-kit, OpenSpec, Martin Fowler/Thoughtworks, HN thread 45935763, and field practitioner critique). These are deliberate, called-out amendments per `AGENTS.md` — "the spec is canonical, updates are deliberate, never silent drift" — not a rewrite of the sections they amend. The base sections stay as the general case; each amendment below states exactly what it changes.
+
+## 163.1 Delta-Spec / Change-Scoped Artifact Mode
+
+Amends: § 21 Change-Impact Engine, § 90 SPEC.md, § 108 Change Management, § 122 Project Output Structure.
+
+Problem: whole-project spec regeneration on every change is the field's #1 complaint — "illusion of work," monster specs, snowball complexity (spec-kit issue #75; HN thread).
+
+ProjectFounder supports two artifact generation modes:
+
+```text
+full   — whole-project generation (existing behavior, § 123 user journey)
+delta  — change-scoped: propose → explore → apply → sync → archive
+```
+
+A `delta` change is its own artifact set, not a rewrite of canonical artifacts:
+
+```text
+output/<project>/changes/<change-id>/
+    PROPOSAL.md      — what/why, scoped to one change
+    DESIGN.md        — optional, only if the change needs design decisions
+    DELTA-SPEC.md    — requirement/behavior deltas only (add/modify/remove)
+```
+
+The Change-Impact Engine (§ 21) produces `DELTA-SPEC.md` from its existing "what changed → what depends on it → what's affected" pipeline. `archive` is a new terminal step: once a delta is approved, it merges into the canonical artifacts (`SPEC.md`, `ARCHITECTURE.md`, …). Canonical artifacts stay the single source of truth; `changes/` is a log of how they got there, not a parallel truth.
+
+`full` mode remains the default for new projects (Levels 1–3, §§ 2508–2520); `delta` mode is the default once a project reaches Level 6+ (Implementation Ready, § 2528) or carries a non-`CREATE` intent (§ 27, see § 163.2).
+
+Artifact Contract (§ 148) gains one field:
+
+```yaml
+artifact:
+  # ...existing fields
+  mode: full | delta   # delta artifacts also set `change_id`
+```
+
+## 163.2 Explore-Before-Design for Brownfield / Non-Greenfield Intent
+
+Amends: § 27 Project Intent, § 123 Concrete v0.1 User Journey (Step 3 Classification → Step 4 Discovery).
+
+Problem: the existing intent list (§ 27: IMPROVE / CLONE / REVERSE_ENGINEER / etc.) already anticipates non-greenfield projects, but the pipeline (Steps 4–11) is written greenfield-shaped — Discovery assumes there is no existing code to read. Field evidence (OpenSpec's Explore workflow; spec-kit discussion #155; HN practitioner reports) says this is exactly where SDD tools fail in practice.
+
+When Project Intent (§ 27) is anything other than `CREATE`, an **Explore** step runs before Discovery:
+
+```text
+CLASSIFICATION (intent ≠ CREATE)
+     ↓
+EXPLORE            ← new: research the existing codebase and its own docs first
+     ↓
+DISCOVERY          ← now grounded in what Explore found, not a blank slate
+     ↓
+... (pipeline continues unchanged)
+```
+
+Explore is a mode of the Research Engine (§ 7.4), not a new engine: it points research at the existing repository (structure, dependencies, existing docs, existing tests) before pointing it outward at the web/market. Its output feeds Discovery and Gap Analysis (§ 401) the same way external research does, using `source: codebase` instead of `source: web` in the Evidence Model (§ 36).
+
+## 163.3 Human-Readable Artifact Tier
+
+Amends: § 80 Documentation Architecture, § 148 Artifact Contract.
+
+Problem: generated specs are too technical for non-technical reviewers to approve (spec-kit discussion #4207), which blocks the human approval gates ProjectFounder already requires (`AGENT.md` § Operating rules).
+
+Every canonical, human-approved artifact (`SPEC.md`, `ARCHITECTURE.md`, `BUDGET.md`, decisions) carries a short plain-language block before its technical body:
+
+```markdown
+> **In plain terms:** <= 5 sentences, no jargon. States what this document
+> decides or contains and why it matters, for a reader outside this
+> document's usual technical audience.
+```
+
+This is not a separate document — Documentation Deduplication (§ 81) still applies. It is a required leading section of the existing canonical artifact, written by whichever engine owns that artifact. Artifact Contract (§ 148) gains a field to track it:
+
+```yaml
+artifact:
+  # ...existing fields
+  has_plain_language_summary: true | false
+```
+
+## 163.4 Executable Validation Over LLM Judgment
+
+Amends: § 13 Validation Engine, § 96 Definition of Ready, § 135 Final Quality Gates.
+
+Problem: validation backed only by an LLM re-reading its own spec is not trusted by practitioners (spec-kit discussion #3674: "should compile to executable architecture tests, not rely on LLM review alone"). The concern is judgment with zero mechanical check, not that tests are a perfect proof.
+
+Requirements (§ 7.9) already produce acceptance criteria; this amendment requires acceptance criteria to be written as Given/When/Then scenarios wherever a requirement is checkable mechanically:
+
+```text
+GIVEN <precondition>
+WHEN  <action>
+THEN  <observable outcome>
+```
+
+The Validation Engine (§ 13) classifies each acceptance criterion as `executable` (compiles to a check under `checks/` — a test or a fitness function) or `judged` (no mechanical check exists yet; LLM/human review is the only gate). Final Quality Gates (§ 135, Requirements subsection) and Definition of Ready (§ 96) both report the executable/judged ratio for a project's acceptance criteria, not just their existence — "acceptance criteria exist" (§ 135) becomes "acceptance criteria exist, `<n>` of which are executable."
