@@ -109,7 +109,7 @@ This repository is currently a **v0.1 scaffold**: the full directory structure, 
 
 The spec has one amendment set so far — `ProjectFounder-idea.md` § 163 *v0.1.1 Amendments*, informed by external research on the spec-driven-development field (`docs/research/`) — covering delta-scoped changes, brownfield exploration, human-readable artifacts, and executable validation.
 
-See [`docs/TASKS.md`](./docs/TASKS.md) for the current build backlog and [`docs/CHANGELOG.md`](./docs/CHANGELOG.md) for what's landed.
+See [`docs/`](./docs/) for this repo's own documentation — build backlog, changelog, decisions, assumptions, constraints, non-goals, open questions, and known limitations.
 
 ## License
 

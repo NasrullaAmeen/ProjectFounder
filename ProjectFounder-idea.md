@@ -4197,9 +4197,16 @@ ProjectFounder/
 ├── README.md
 ├── LICENSE
 │
-├── docs/
+├── docs/                     # this repo's own § 88 instance (not project output, § 122)
 │   ├── CHANGELOG.md          # this repo's own changelog (not a project artifact)
 │   ├── TASKS.md              # this repo's own build backlog (not TASKS.md, § 91)
+│   ├── DECISIONS.md          # this repo's own decision log (§ 34 record shape)
+│   ├── ASSUMPTIONS.md        # unproven premises the design relies on
+│   ├── CONSTRAINTS.md        # hard rules the design must not break
+│   ├── NON-GOALS.md          # § 138–139, what v0.1 deliberately won't do
+│   ├── OPEN-QUESTIONS.md     # § 111, unresolved questions that may block readiness
+│   ├── LIMITATIONS.md        # § 110, what doesn't work yet
+│   ├── REFERENCES.md         # index of external sources
 │   └── research/             # meta-research about ProjectFounder itself
 │
 ├── config/

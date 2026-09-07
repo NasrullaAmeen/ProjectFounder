@@ -16,6 +16,7 @@ This changelog tracks ProjectFounder's own development (the repo you're reading)
   - § 163.4 Executable (vs. LLM-judged) validation for acceptance criteria (amends § 13, § 96, § 135).
 - `docs/` directory as the home for this repo's own documentation (changelog, task backlog, meta-research), separate from the artifacts ProjectFounder generates for downstream projects.
 - `docs/TASKS.md` — this repo's own build backlog, distinct from the `TASKS.md` artifact (spec § 91) ProjectFounder generates per downstream project.
+- This repo's own instance of spec § 88 Core Project Artifacts, scoped to what has real content today (see `docs/DECISIONS.md` D004 for why the rest is deferred): `docs/DECISIONS.md`, `docs/ASSUMPTIONS.md`, `docs/CONSTRAINTS.md`, `docs/NON-GOALS.md`, `docs/OPEN-QUESTIONS.md`, `docs/LIMITATIONS.md`, `docs/REFERENCES.md`.
 
 ### Changed
 

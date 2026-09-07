@@ -11,6 +11,7 @@ Status values: `todo`, `in-progress`, `done`, `deferred`.
 - [x] `done` — § 163.2 Explore-before-design amendment for non-`CREATE` intents.
 - [x] `done` — § 163.3 Human-readable plain-language artifact tier amendment.
 - [x] `done` — § 163.4 Executable-vs-judged validation amendment.
+- [x] `done` — Created this repo's own instance of spec § 88 Core Project Artifacts (the subset with real content today): `docs/DECISIONS.md`, `docs/ASSUMPTIONS.md`, `docs/CONSTRAINTS.md`, `docs/NON-GOALS.md`, `docs/OPEN-QUESTIONS.md`, `docs/LIMITATIONS.md`, `docs/REFERENCES.md` — see `docs/DECISIONS.md` D004.
 - [ ] `todo` — P1 research recommendations not yet turned into spec amendments: context persistence across sessions (Memory Engine, § 23), anti-drift loop (Feedback/Validation engines).
 - [ ] `todo` — P2 research recommendations: "actions not phases" wording for the Workflow Engine (§ 20), retrospective/feedback step at end of lifecycle (§ 25).
 
