@@ -193,6 +193,38 @@ decision:
     - examples/bookmark-manager/PROJECT.yaml
 ```
 
+### D007 — Fold the P1 research recommendations into the spec as § 163.6/§ 163.7
+
+```yaml
+decision:
+  id: D007
+  title: Resolve docs/OPEN-QUESTIONS.md Q3 — session persistence and anti-drift amendments
+  context: >
+    docs/research/2026-09-08-projectfounder-deep-research.md's P1 items
+    (context persistence across sessions, spec-kit #1482; an anti-drift
+    loop, DZone/Focused Labs) had been logged as an open question rather
+    than acted on, pending a decision on whether to fold them in now or
+    wait for Phase 1/2 to make them concrete.
+  options:
+    - Wait until Phase 1/2 implementation makes Memory/Feedback engines concrete, amend the spec then
+    - Fold both into the spec now as § 163.x amendments, same pattern as § 163.1-163.5
+  selected: Fold in now
+  rationale: >
+    Both P1 items amend existing sections (§ 23, § 24, § 37, § 98, § 99,
+    § 108, § 148) rather than requiring new engines to exist first - the
+    § 163.1-163.5 amendments already established that a spec amendment can
+    precede implementation. Waiting risks the same "sat on a completed,
+    actionable finding" drift that motivated D003.
+  evidence: docs/research/2026-09-08-projectfounder-deep-research.md § 4, items 5-6
+  confidence: MEDIUM
+  reversibility: MODERATE
+  approval: RECOMMEND
+  dependencies: [D003]
+  affected_artifacts:
+    - "ProjectFounder-idea.md § 163.6, § 163.7"
+    - docs/OPEN-QUESTIONS.md
+```
+
 ## Conventions
 
 - Add a new `D0NN` entry per decision that would be non-obvious from the diff alone — not for every commit.

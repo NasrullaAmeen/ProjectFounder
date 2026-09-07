@@ -873,6 +873,8 @@ Handles:
 
 # 23. Memory Engine
 
+> See § 163.6 for the v0.1.1 amendment adding MEMORY.md and a required session-bootstrap step.
+
 Stores:
 
 * project history
@@ -888,6 +890,8 @@ Stores:
 ---
 
 # 24. Feedback Engine
+
+> See § 163.7 for the v0.1.1 amendment wiring feedback into anti-drift detection.
 
 Captures:
 
@@ -1275,6 +1279,8 @@ They must never be silently hidden.
 ---
 
 # 37. Research Freshness
+
+> See § 163.7 for the v0.1.1 amendment generalizing this freshness model into a `drift_status` on every canonical artifact, not just research facts.
 
 Research-sensitive information must have freshness rules.
 
@@ -2294,6 +2300,8 @@ ZERO-COST.md
 ---
 
 # 88. Core Project Artifacts
+
+> See § 163.6 for the v0.1.1 amendment adding `MEMORY.md` to this list.
 
 Every ProjectFounder project should normally contain:
 
@@ -4920,3 +4928,41 @@ project:
 This keeps § 28's canonical list exactly as specified — nothing is silently added to it — while not losing information a real idea actually contains. `other` entries are a signal, not noise: if the same free-text label recurs across multiple projects, that's evidence § 28 itself should gain an enumerated value, via a normal called-out spec amendment (see § 163's own pattern), not by the taxonomy growing unboundedly one label at a time.
 
 Artifact Contract (§ 148) is unaffected; this only changes the shape of the `types` field already introduced for `PROJECT.yaml` (§ 120).
+
+## 163.6 Session Context Persistence
+
+Amends: § 23 Memory Engine, § 88 Core Project Artifacts, § 98 Build Context Package, § 99 Handoff System.
+
+Problem: the field's loudest complaint isn't spec generation quality, it's context loss between sessions (spec-kit discussion #1482: "AI forgets everything between sessions"). § 23 already lists what the Memory Engine stores, and § 99 already closes with the right goal — "the coding agent does not need to rediscover the project" — but nothing says *when* memory is loaded, and most of § 23's categories already have a canonical home elsewhere (decisions → `DECISIONS.md`, assumptions → `ASSUMPTIONS.md`, research → `RESEARCH.md`/research cache § 114), which § 81 Documentation Deduplication says shouldn't be duplicated into a second file.
+
+Two changes:
+
+1. **`MEMORY.md`** joins § 88's Core Project Artifacts, scoped to exactly the § 23 categories that have no other canonical home: user preferences, implementation discoveries (facts learned while building that aren't decisions — "the free tier actually caps at 3 seats, not 5"), and lessons learned. Project history, decisions, research, assumptions, and feedback stay in their existing artifacts; `MEMORY.md` doesn't repeat them.
+2. **Session bootstrap is a required, named step**, not an implicit assumption. At the start of any session working on a project, before any engine runs: read `PROJECT.yaml`, `MEMORY.md`, `DECISIONS.md`, and `OPEN-QUESTIONS.md`. This is distinct from the task-scoped Build Context Package (§ 98, which stays narrow on purpose) — bootstrap is session-scoped and always runs once; the Build Context Package is per-task and runs many times within a session.
+
+```yaml
+session_bootstrap:
+  always_read: [PROJECT.yaml, MEMORY.md, DECISIONS.md, OPEN-QUESTIONS.md]
+  purpose: "A new session starts with the project's durable state already loaded, not rediscovered from scratch."
+```
+
+## 163.7 Anti-Drift Detection Loop
+
+Amends: § 21 Change-Impact Engine, § 24 Feedback Engine, § 37 Research Freshness, § 108 Change Management, § 135 Final Quality Gates.
+
+Problem: spec-to-code drift is the same docs-vs-code-drift problem that's existed for 20 years, except it now makes agents ship wrong changes on top of stale assumptions, not just confuse human readers (DZone, "SDD Didn't Solve the Real Problem"; Focused Labs, "Documentation Drift Breaks Coding Agents"). § 108 Change Management already handles a *declared* change's impact, and § 37 already tracks freshness for research facts specifically — neither one detects *undeclared* drift: code that changed without the spec being told, or an artifact whose upstream dependency (§ 107 Artifact Dependency Graph) changed without anyone checking whether it still holds.
+
+§ 37's freshness enum (`FRESH` / `AGING` / `STALE` / `UNKNOWN`) generalizes from research facts to every canonical artifact, as a new `drift_status` field on the Artifact Contract (§ 148):
+
+```yaml
+artifact:
+  # ...existing fields
+  drift_status: IN_SYNC | SUSPECT | DRIFTED | UNKNOWN
+```
+
+- `IN_SYNC` — nothing suggests divergence from what the artifact describes.
+- `SUSPECT` — an upstream dependency (§ 107) changed since this artifact was last touched, but nobody has confirmed whether it still holds.
+- `DRIFTED` — confirmed to no longer match reality (implementation feedback, a production observation, or a research re-check contradicts it).
+- `UNKNOWN` — no signal either way (e.g. a freshly generated artifact with no dependents yet).
+
+The Feedback Engine (§ 24) is the trigger: implementation feedback, production observations, or research corrections that contradict a canonical artifact flip its `drift_status` to `SUSPECT` or `DRIFTED` and propagate `SUSPECT` to its dependents via the Artifact Dependency Graph (§ 107) — the same propagation § 108 already does for a *declared* change, now also firing on an *observed* one. Final Quality Gates (§ 135, Documentation subsection) add one check: no canonical artifact the project depends on is `DRIFTED` at `R6`/`R7`. This makes "keep the spec true" a checked property (per § 163.4's own executable-over-judged principle) instead of a promise nobody verifies.

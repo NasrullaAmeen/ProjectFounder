@@ -6,6 +6,12 @@ This changelog tracks ProjectFounder's own development (the repo you're reading)
 
 ## [Unreleased]
 
+### Added — spec
+
+- `ProjectFounder-idea.md` § 163.6 "Session Context Persistence": `MEMORY.md` joins § 88's Core Project Artifacts (scoped to user preferences, implementation discoveries, and lessons learned — not duplicating `DECISIONS.md`/`ASSUMPTIONS.md`/research artifacts), plus a required session-bootstrap step (`PROJECT.yaml`, `MEMORY.md`, `DECISIONS.md`, `OPEN-QUESTIONS.md` read before any engine runs). Resolves the Memory Engine half of `docs/OPEN-QUESTIONS.md` Q3.
+- `ProjectFounder-idea.md` § 163.7 "Anti-Drift Detection Loop": generalizes § 37's research freshness enum into a `drift_status` field (`IN_SYNC`/`SUSPECT`/`DRIFTED`/`UNKNOWN`) on every canonical artifact, wired to the Feedback Engine and propagated via the Artifact Dependency Graph (§ 107); Final Quality Gates (§ 135) now check no canonical artifact is `DRIFTED` at R6/R7. Resolves the anti-drift half of Q3.
+- Both logged as `docs/DECISIONS.md` D007.
+
 ### Added — Phase 0 (§ 140)
 
 - Resolved the Phase 0 stack decision (`docs/OPEN-QUESTIONS.md` Q1 → `docs/DECISIONS.md` D005): agent-executed contracts, no code, until an engine needs deterministic logic an agent can't do by reading files.
