@@ -21,7 +21,7 @@ Status values: `todo`, `in-progress`, `done`, `deferred`.
 
 ## Phase 0 — Foundation (spec § 140)
 
-In progress. Stack decision resolved (`docs/DECISIONS.md` D005): agent-executed contracts, no code, until an engine needs deterministic logic beyond what an agent can do by reading files.
+Complete for its declared scope, agent-executed per `docs/DECISIONS.md` D005 (no code, until an engine needs deterministic logic beyond what an agent can do by reading files). Lightly tested: only exercised once end-to-end (`examples/bookmark-manager/`, a `CREATE`-intent idea) — the § 163.2 Explore branch for non-`CREATE` intents has never been run.
 
 - [x] `done` — Decide implementation stack — resolved as agent-only for now (D005).
 - [x] `done` — Project model + `PROJECT.yaml` manifest (§ 120): `schemas/project.schema.yaml` fleshed out, `templates/core/PROJECT.yaml` fillable template added.
