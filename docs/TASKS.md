@@ -21,7 +21,7 @@ Status values: `todo`, `in-progress`, `done`, `deferred`.
 
 ## Phase 0 — Foundation (spec § 140)
 
-Complete for its declared scope, agent-executed per `docs/DECISIONS.md` D005 (no code, until an engine needs deterministic logic beyond what an agent can do by reading files). Lightly tested: only exercised once end-to-end (`examples/bookmark-manager/`, a `CREATE`-intent idea) — the § 163.2 Explore branch for non-`CREATE` intents has never been run.
+Complete for its declared scope, agent-executed per `docs/DECISIONS.md` D005 (no code, until an engine needs deterministic logic beyond what an agent can do by reading files). Exercised twice end-to-end: `examples/bookmark-manager/` (`CREATE` intent) and `examples/notes-app-extend/` (`EXTEND` intent, exercising the § 163.2 Explore branch).
 
 - [x] `done` — Decide implementation stack — resolved as agent-only for now (D005).
 - [x] `done` — Project model + `PROJECT.yaml` manifest (§ 120): `schemas/project.schema.yaml` fleshed out, `templates/core/PROJECT.yaml` fillable template added.
@@ -31,6 +31,8 @@ Complete for its declared scope, agent-executed per `docs/DECISIONS.md` D005 (no
 - [x] `done` — First real workflow + command: `workflows/new-project.md` (capture → classify → validate, stops at `CLASSIFIED`) and `commands/new-project.md`.
 - [ ] `todo` — "Schema validation loader" / "Configuration/policy loader" as originally scoped (a program that reads `schemas/*.schema.yaml` / `config/*.yaml` and validates automatically) — deliberately not built; Phase 0 validation is agent-judged per D005. Revisit if/when this stops scaling (`docs/OPEN-QUESTIONS.md` Q2).
 - [x] `done` — Exercised `workflows/new-project.md` end-to-end against the § 123 bookmark-manager idea: `examples/bookmark-manager/`. Found and fixed a real gap (missing `created_at`/`updated_at` in the schema/template). Found and fixed a second gap via § 163.5 (classification escape hatch, `docs/DECISIONS.md` D006) — see `examples/bookmark-manager/NOTES.md`.
+- [x] `done` — Stress-tested the § 163.2 Explore branch with a second, non-`CREATE` example: `examples/notes-app-extend/`. Found and fixed a real gap — § 25's lifecycle had no state for the Explore step — via § 163.12 (`docs/DECISIONS.md` D009) — see `examples/notes-app-extend/NOTES.md`.
+- [ ] `todo` — Try a genuinely ambiguous intent (e.g. "rebuild my app but keep some of the old code") — every example so far has had a single, unambiguous intent classification (`examples/notes-app-extend/NOTES.md` takeaway).
 
 ## Phases 1–8
 

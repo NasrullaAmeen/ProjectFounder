@@ -34,7 +34,7 @@ properties:
       lifecycle:
         type: string
         description: Current stage in the Lifecycle Engine (§ 25). See config/lifecycle.yaml for the state machine.
-        enum: [IDEA, CAPTURED, CLASSIFIED, DISCOVERY, RESEARCHING, DESIGNING, SPECIFYING, VALIDATING, READY, BUILDING, TESTING, BETA, PRODUCTION, OPERATING, EVOLVING, ARCHIVED]
+        enum: [IDEA, CAPTURED, CLASSIFIED, EXPLORING, DISCOVERY, RESEARCHING, DESIGNING, SPECIFYING, VALIDATING, READY, BUILDING, TESTING, BETA, PRODUCTION, OPERATING, EVOLVING, ARCHIVED]
       mode:
         type: string
         description: Current operating mode (§ 26).

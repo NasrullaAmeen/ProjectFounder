@@ -1,0 +1,35 @@
+# Founded via workflows/new-project.md against idea.md in this directory.
+# See NOTES.md for what running the workflow actually surfaced.
+#
+# Deliberately stops at lifecycle CLASSIFIED (workflows/new-project.md's
+# scope) even though intent != CREATE means EXPLORING (§ 163.2, § 163.12)
+# is the real next step — Explore isn't implemented yet (Phase 1/2).
+
+project:
+  id: notes-app-extend
+  name: Notes App AI Extension
+  version: "0.1"
+  status: "Founded as a worked example exercising the § 163.2 Explore branch (non-CREATE intent)."
+  lifecycle: CLASSIFIED
+  mode:
+  intent: EXTEND
+  types:
+    product: [Open Source]
+    application: [Web, API]
+    technical: [Service]
+    ai: [AI Skill]
+    deployment: [Self-Hosted]
+    other:
+      product: []
+      application: []
+      technical: []
+      ai: ["Auto-tagging"]
+      deployment: []
+  complexity: MEDIUM
+  readiness: R0
+  quality_profile: STANDARD
+  research_depth: L1
+  documentation_depth: STANDARD
+  created_at: "2026-09-08"
+  updated_at: "2026-09-08"
+  default_autonomy: L1

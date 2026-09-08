@@ -54,7 +54,7 @@ workflow:
 
 1. Read `config/project-types.yaml`. For each dimension (`product`, `application`, `technical`, `ai`, `deployment`), decide which listed values apply — zero, one, or several are valid (§ 28: "multiple classifications may apply"). If the idea genuinely needs a label that isn't in the taxonomy, put it under `types.other.<dimension>` (§ 163.5) — don't invent a new enumerated value and don't drop the information.
 2. Set `intent` (§ 27). Default is `CREATE`; change it if the user's own words indicate otherwise (e.g. "clone", "rebuild", "improve an existing project").
-3. If `intent` is not `CREATE`, do **not** proceed to Discovery once this workflow ends — the § 163.2 Explore step runs first (not yet implemented; note it as the next step for the human).
+3. If `intent` is not `CREATE`, do **not** proceed to Discovery once this workflow ends — the § 163.2 Explore step runs first, targeting lifecycle `EXPLORING` (§ 163.12). This workflow doesn't set that state itself (Explore isn't implemented, Phase 1/2) — leave the project at `CLASSIFIED` and tell the user the next stage is Explore, not Discovery.
 4. Set an initial `complexity` estimate (§ 116) — a first guess, refined later by the Gap Analysis / Architecture engines (not yet implemented).
 5. Advance `lifecycle: CLASSIFIED` (`CAPTURED -> CLASSIFIED` per `config/lifecycle.yaml`) and bump `updated_at`.
 
@@ -65,4 +65,4 @@ workflow:
 
 ## What happens next (not yet implemented)
 
-Discovery (Phase 1, § 297) is the next step in the full pipeline but has no engine, agent, or skill contract fleshed out yet. Stop here and tell the user the project is founded and classified; don't fabricate a Discovery step to seem more complete than the repo actually is (§ 139 "hide uncertainty" is forbidden).
+For a `CREATE`-intent project, Discovery (Phase 1, § 297) is next; for any other intent, Explore (§ 163.2, targeting lifecycle `EXPLORING`) runs first. Neither has an engine, agent, or skill contract fleshed out yet. Stop here and tell the user which one is next and that it isn't implemented; don't fabricate either step to seem more complete than the repo actually is (§ 139 "hide uncertainty" is forbidden).

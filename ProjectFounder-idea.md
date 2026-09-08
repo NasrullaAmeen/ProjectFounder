@@ -912,7 +912,7 @@ This feeds back into the intelligence loop.
 
 # 25. Lifecycle Engine
 
-> See § 163.9 for the v0.1.1 amendment wiring EVOLVING to a Retrospective step that can loop back to RESEARCHING, per § 124's own diagram.
+> See § 163.9 for the v0.1.1 amendment wiring EVOLVING to a Retrospective step that can loop back to RESEARCHING, per § 124's own diagram. See § 163.12 for the v0.1.1 amendment adding the EXPLORING state § 163.2 needs but this diagram never defined.
 
 ProjectFounder lifecycle:
 
@@ -4878,6 +4878,8 @@ DISCOVERY          ← now grounded in what Explore found, not a blank slate
 
 Explore is a mode of the Research Engine (§ 7.4), not a new engine: it points research at the existing repository (structure, dependencies, existing docs, existing tests) before pointing it outward at the web/market. Its output feeds Discovery and Gap Analysis (§ 401) the same way external research does, using `source: codebase` instead of `source: web` in the Evidence Model (§ 36).
 
+> Note (found by dogfooding, see § 163.12): this diagram's `EXPLORE` box has no corresponding value in § 25's lifecycle enum — a project with a non-`CREATE` intent had nowhere valid to record "Explore is happening now." Fixed in § 163.12.
+
 ## 163.3 Human-Readable Artifact Tier
 
 Amends: § 80 Documentation Architecture, § 148 Artifact Contract.
@@ -5033,3 +5035,21 @@ Amends: none — positioning only, no engine, artifact, or contract changes.
 Problem: research item P2-7 — HN's single loudest tactical critique of the whole SDD field is "no evidence, no attempt to create evidence" and unfalsifiable "coverage claims pushed as fact." ProjectFounder already has an Evidence Model (§ 36) and source/freshness tracking (§ 37, generalized further by § 163.7) — the gap isn't architecture, it's that nothing in this repo's own README or positioning says so.
 
 Tracked here so it isn't lost, deliberately not acted on yet: `README.md`'s pitch should name the Evidence Model and freshness/drift tracking as differentiators once there's a real run to point to (an actual project founded with actual evidence recorded), not asserted abstractly — asserting it now, with no real run behind it, would repeat the exact "claims without citations" failure mode being cited.
+
+## 163.12 Explore Needs a Lifecycle State
+
+Amends: § 25 Lifecycle Engine.
+
+Problem: found by dogfooding, not external research. Exercising § 163.2's Explore branch against a second worked example (a non-`CREATE` idea, `examples/`) showed that § 25's lifecycle diagram goes straight from `CLASSIFIED` to `DISCOVERY` — there is no state at all corresponding to § 163.2's `EXPLORE` box. A project with a non-`CREATE` intent has nowhere valid to record "Explore is happening now": staying at `CLASSIFIED` is stale (classification is done), and advancing to `DISCOVERY` directly contradicts § 163.2's own instruction not to proceed to Discovery until Explore has run.
+
+`EXPLORING` joins § 25's lifecycle states, between `CLASSIFIED` and `DISCOVERY`:
+
+```text
+CLASSIFIED
+ ↓                    (intent = CREATE: skip straight to DISCOVERY)
+EXPLORING             (intent ≠ CREATE only — § 163.2)
+ ↓
+DISCOVERY
+```
+
+`CLASSIFIED` now has two legal next states — `EXPLORING` (non-`CREATE` intent) or `DISCOVERY` (`CREATE` intent) — chosen by the project's own `intent` field, not by any new field. `EXPLORING` always advances to `DISCOVERY`, exactly as § 163.2 already diagrams. This doesn't change § 26 Project Modes: Explore is a Research Engine mode (§ 163.2), and the closest existing project mode, `DISCOVERY`, already covers it without needing a new mode value — only the lifecycle *state* was missing, not a mode.

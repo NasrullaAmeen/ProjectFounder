@@ -263,6 +263,40 @@ decision:
     - docs/OPEN-QUESTIONS.md
 ```
 
+### D009 — Add an EXPLORING lifecycle state
+
+```yaml
+decision:
+  id: D009
+  title: Give § 163.2's Explore step a lifecycle state to land on
+  context: >
+    Exercising workflows/new-project.md against a second, non-CREATE-intent
+    worked example (examples/notes-app-extend/) showed § 25's lifecycle
+    diagram jumps straight from CLASSIFIED to DISCOVERY, with no state
+    corresponding to § 163.2's EXPLORE step. A non-CREATE project had no
+    valid way to record "Explore is happening now."
+  options:
+    - Reuse CLASSIFIED for the duration of Explore (stale — classification is actually done)
+    - Let Explore advance straight to DISCOVERY (contradicts § 163.2's own instruction)
+    - Add a new EXPLORING state between CLASSIFIED and DISCOVERY
+  selected: Add EXPLORING (§ 163.12)
+  rationale: >
+    The other two options either misrepresent project state or directly
+    contradict an already-approved amendment (§ 163.2). Adding one state
+    is the smallest change that makes the § 163.2 diagram actually
+    representable in PROJECT.yaml.
+  evidence: examples/notes-app-extend/NOTES.md
+  confidence: HIGH
+  reversibility: EASY
+  approval: AUTO_APPROVE
+  dependencies: []
+  affected_artifacts:
+    - "ProjectFounder-idea.md § 163.12"
+    - config/lifecycle.yaml
+    - schemas/project.schema.yaml
+    - workflows/new-project.md
+```
+
 ## Conventions
 
 - Add a new `D0NN` entry per decision that would be non-obvious from the diff alone — not for every commit.

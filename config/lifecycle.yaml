@@ -16,6 +16,7 @@ states:
   - IDEA
   - CAPTURED
   - CLASSIFIED
+  - EXPLORING   # § 163.12 — non-CREATE intent only, between CLASSIFIED and DISCOVERY
   - DISCOVERY
   - RESEARCHING
   - DESIGNING
@@ -30,16 +31,20 @@ states:
   - EVOLVING
   - ARCHIVED
 
-# Baseline transitions, as diagrammed in § 25, plus the one loop-back
-# § 163.9 makes explicit (EVOLVING -> RESEARCHING, matching § 124's
-# Continuous Intelligence Loop). Other loop-backs (e.g. a failed VALIDATING
-# returning to SPECIFYING) aren't diagrammed anywhere in the spec, so none
-# are encoded here — see docs/OPEN-QUESTIONS.md Q8 rather than inventing
-# transition rules the spec doesn't state.
+# Baseline transitions, as diagrammed in § 25, plus:
+# - EVOLVING -> RESEARCHING (§ 163.9, matching § 124's Continuous Intelligence Loop)
+# - CLASSIFIED -> EXPLORING / EXPLORING -> DISCOVERY (§ 163.12): CLASSIFIED's
+#   two legal next states are chosen by the project's `intent` field — a
+#   non-CREATE intent goes to EXPLORING first, CREATE skips straight to
+#   DISCOVERY. Other loop-backs (e.g. a failed VALIDATING returning to
+#   SPECIFYING) aren't diagrammed anywhere in the spec, so none are encoded
+#   here — see docs/OPEN-QUESTIONS.md Q8 rather than inventing transition
+#   rules the spec doesn't state.
 transitions:
   IDEA: [CAPTURED]
   CAPTURED: [CLASSIFIED]
-  CLASSIFIED: [DISCOVERY]
+  CLASSIFIED: [EXPLORING, DISCOVERY]   # § 163.12: EXPLORING if intent != CREATE, else DISCOVERY
+  EXPLORING: [DISCOVERY]
   DISCOVERY: [RESEARCHING]
   RESEARCHING: [DESIGNING]
   DESIGNING: [SPECIFYING]

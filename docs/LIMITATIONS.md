@@ -11,8 +11,9 @@ Phase 0 is implemented as agent-executed contracts, not a program (`docs/DECISIO
 - `config/*.yaml` are still empty stubs except `lifecycle.yaml` and `project-types.yaml` — no policy is mechanically enforced.
 - `checks/`, `resources/` contain only READMEs describing what will eventually live there ("Status: not yet implemented"). `commands/` and `workflows/` now each have one real file (`new-project.md`); everything else planned for them is still just a README list.
 - `agents/*.md` (except `project-architect.md`) and all of `skills/*/` are still draft contracts with empty arrays, not runnable prompts/tools.
-- `examples/bookmark-manager/` only covers § 123's Steps 1–3 (capture + classify) — Steps 4 onward (Discovery, Research, ...) aren't run because those engines don't exist yet.
-- The § 163.5 classification escape hatch (`types.other.<dimension>`) is new and only exercised by this one example — it hasn't been tested against a project whose labels don't fit even loosely into the five existing dimensions at all.
+- `examples/bookmark-manager/` and `examples/notes-app-extend/` both only cover capture + classify — neither Discovery (Phase 1) nor Explore (§ 163.2, Phase 1/2) has ever actually run; `EXPLORING` (§ 163.12) is a defined lifecycle state with no workflow that sets it yet.
+- The § 163.5 classification escape hatch (`types.other.<dimension>`) has been exercised twice, both times for at most 2 free-text labels in one dimension — not tested against an idea with no fit at all in a dimension, or many `other` labels at once.
+- Both worked examples have unambiguous intent (`CREATE`, `EXTEND`) — a genuinely ambiguous idea (e.g. "rebuild but keep some of the old code") hasn't been tried; `agents/project-architect.md`'s escalation rule assumes classification produces one clean answer per dimension.
 
 ## No implementation stack chosen for anything beyond Phase 0's agent-only slice
 

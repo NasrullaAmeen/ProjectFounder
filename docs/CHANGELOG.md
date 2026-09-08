@@ -20,6 +20,14 @@ This changelog tracks ProjectFounder's own development (the repo you're reading)
 - § 163.11 "Evidence as the Visible Differentiator": positioning note only, deliberately not acted on until there's a real run to point to.
 - Resolves `docs/OPEN-QUESTIONS.md` Q4 in full — logged as `docs/DECISIONS.md` D008, which also notes and corrects an earlier triage gap (two of these four P2 items were dropped when D003 first logged the research findings).
 
+### Added — second worked example
+
+- `examples/notes-app-extend/`: an invented non-`CREATE` idea (`intent: EXTEND`), run through `workflows/new-project.md` specifically to exercise the § 163.2 Explore branch (`idea.md`, `PROJECT.yaml`, `NOTES.md`).
+
+### Fixed
+
+- § 25's lifecycle diagram had no state corresponding to § 163.2's Explore step, going straight from `CLASSIFIED` to `DISCOVERY`. Found while building the second worked example. Added `ProjectFounder-idea.md` § 163.12 "Explore Needs a Lifecycle State" (`EXPLORING`, between `CLASSIFIED` and `DISCOVERY`), synced into `config/lifecycle.yaml` and `schemas/project.schema.yaml`. Logged as `docs/DECISIONS.md` D009.
+
 ### Added — Phase 0 (§ 140)
 
 - Resolved the Phase 0 stack decision (`docs/OPEN-QUESTIONS.md` Q1 → `docs/DECISIONS.md` D005): agent-executed contracts, no code, until an engine needs deterministic logic an agent can't do by reading files.
