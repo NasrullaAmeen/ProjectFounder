@@ -37,3 +37,4 @@ project:
   documentation_depth: STANDARD
   created_at:                # set once, at capture (§ 123 Step 2) — YYYY-MM-DD
   updated_at:                # bump on every write to this file
+  default_autonomy: L1       # § 9 / § 163.10 — L0-L5; per-agent autonomy: fields override this

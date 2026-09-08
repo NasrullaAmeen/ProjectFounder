@@ -225,6 +225,44 @@ decision:
     - docs/OPEN-QUESTIONS.md
 ```
 
+### D008 — Fold all four P2 research recommendations into the spec, not just the two logged
+
+```yaml
+decision:
+  id: D008
+  title: Resolve docs/OPEN-QUESTIONS.md Q4 — full P2 set, correcting an earlier triage gap
+  context: >
+    D003 originally triaged docs/research/2026-09-08-projectfounder-deep-research.md
+    § 4 into P0/P1/P2 and only logged two of the four P2 items (§ 20
+    "actions not phases" and the retrospective step) into
+    docs/OPEN-QUESTIONS.md Q4 / docs/TASKS.md. The other two (evidence-forward
+    positioning, autonomy-as-setting) were dropped in that pass and only
+    surfaced again when asked to "keep going with the P2 items."
+  options:
+    - Only address the two items already tracked in Q4
+    - Re-check the research report's full P2 list and address all four, noting the earlier gap
+  selected: All four, gap noted
+  rationale: >
+    Silently completing only what was previously (incompletely) tracked
+    would repeat the exact failure this repo's own docs/DECISIONS.md and
+    OPEN-QUESTIONS.md exist to prevent - since the research findings were
+    already recorded evidence (D003), leaving two of four unaddressed
+    without even a tracked question would have been a gap nobody could see.
+  evidence: docs/research/2026-09-08-projectfounder-deep-research.md § 4, items 7-10
+  confidence: HIGH
+  reversibility: MODERATE
+  approval: RECOMMEND
+  dependencies: [D003, D007]
+  affected_artifacts:
+    - "ProjectFounder-idea.md § 163.8, § 163.9, § 163.10, § 163.11"
+    - config/lifecycle.yaml
+    - schemas/project.schema.yaml
+    - templates/core/PROJECT.yaml
+    - examples/bookmark-manager/PROJECT.yaml
+    - workflows/new-project.md
+    - docs/OPEN-QUESTIONS.md
+```
+
 ## Conventions
 
 - Add a new `D0NN` entry per decision that would be non-obvious from the diff alone — not for every commit.

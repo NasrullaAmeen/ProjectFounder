@@ -12,6 +12,14 @@ This changelog tracks ProjectFounder's own development (the repo you're reading)
 - `ProjectFounder-idea.md` § 163.7 "Anti-Drift Detection Loop": generalizes § 37's research freshness enum into a `drift_status` field (`IN_SYNC`/`SUSPECT`/`DRIFTED`/`UNKNOWN`) on every canonical artifact, wired to the Feedback Engine and propagated via the Artifact Dependency Graph (§ 107); Final Quality Gates (§ 135) now check no canonical artifact is `DRIFTED` at R6/R7. Resolves the anti-drift half of Q3.
 - Both logged as `docs/DECISIONS.md` D007.
 
+### Added — spec (P2)
+
+- `ProjectFounder-idea.md` § 163.8 "Actions, Not Phases": reframes the Workflow Engine (§ 20) as independently invokable actions with declared `preconditions`, not one locked pipeline — formalizing what `commands/new-project.md`/`workflows/new-project.md` already do.
+- § 163.9 "Retrospective as a Lifecycle Reassess Step": wires `EVOLVING -> RESEARCHING` as a legal lifecycle transition, matching § 124's own Continuous Intelligence Loop diagram; partially resolves `docs/OPEN-QUESTIONS.md` Q8. Synced into `config/lifecycle.yaml`.
+- § 163.10 "Autonomy as a Project Setting": adds `default_autonomy` (§ 9's L0-L5 scale) to `PROJECT.yaml`. Synced into `schemas/project.schema.yaml`, `templates/core/PROJECT.yaml`, `examples/bookmark-manager/PROJECT.yaml`, and `workflows/new-project.md`.
+- § 163.11 "Evidence as the Visible Differentiator": positioning note only, deliberately not acted on until there's a real run to point to.
+- Resolves `docs/OPEN-QUESTIONS.md` Q4 in full — logged as `docs/DECISIONS.md` D008, which also notes and corrects an earlier triage gap (two of these four P2 items were dropped when D003 first logged the research findings).
+
 ### Added — Phase 0 (§ 140)
 
 - Resolved the Phase 0 stack decision (`docs/OPEN-QUESTIONS.md` Q1 → `docs/DECISIONS.md` D005): agent-executed contracts, no code, until an engine needs deterministic logic an agent can't do by reading files.

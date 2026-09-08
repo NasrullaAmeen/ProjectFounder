@@ -539,6 +539,8 @@ It evaluates:
 
 # 9. Agent Engine
 
+> See § 163.10 for the v0.1.1 amendment surfacing the L0-L5 autonomy scale as a project-level setting, not just a per-agent field.
+
 The Agent Engine designs project-specific agents.
 
 It defines:
@@ -809,6 +811,8 @@ Creates implementation tasks with:
 
 # 20. Workflow Engine
 
+> See § 163.8 for the v0.1.1 amendment reframing this as independently invokable actions with preconditions, not one locked pipeline.
+
 Controls execution.
 
 Example:
@@ -907,6 +911,8 @@ This feeds back into the intelligence loop.
 ---
 
 # 25. Lifecycle Engine
+
+> See § 163.9 for the v0.1.1 amendment wiring EVOLVING to a Retrospective step that can loop back to RESEARCHING, per § 124's own diagram.
 
 ProjectFounder lifecycle:
 
@@ -2998,6 +3004,8 @@ workflow.schema.yaml
 
 # 120. Project Manifest
 
+> See § 163.5 for the v0.1.1 classification escape hatch, § 163.6 for MEMORY.md and session bootstrap, and § 163.10 for the default_autonomy field.
+
 Every generated project should have:
 
 ```text
@@ -3507,6 +3515,8 @@ The coding agent does not need to rediscover the project.
 ---
 
 # 124. Continuous Intelligence Loop
+
+> See § 163.9 for the v0.1.1 amendment that turns this diagram's REASSESS loop into an actual lifecycle transition (EVOLVING -> RESEARCHING).
 
 ProjectFounder does not stop after generating documents.
 
@@ -4966,3 +4976,60 @@ artifact:
 - `UNKNOWN` — no signal either way (e.g. a freshly generated artifact with no dependents yet).
 
 The Feedback Engine (§ 24) is the trigger: implementation feedback, production observations, or research corrections that contradict a canonical artifact flip its `drift_status` to `SUSPECT` or `DRIFTED` and propagate `SUSPECT` to its dependents via the Artifact Dependency Graph (§ 107) — the same propagation § 108 already does for a *declared* change, now also firing on an *observed* one. Final Quality Gates (§ 135, Documentation subsection) add one check: no canonical artifact the project depends on is `DRIFTED` at `R6`/`R7`. This makes "keep the spec true" a checked property (per § 163.4's own executable-over-judged principle) instead of a promise nobody verifies.
+
+## 163.8 Actions, Not Phases
+
+Amends: § 20 Workflow Engine, § 149 Workflow Contract.
+
+Problem: research item P2-8 — OpenSpec's "actions, not phases" framing (`opsx: propose → explore → apply → sync → archive`) treats each stage as an independently invokable command with its own preconditions, not a step in one locked pipeline the user must walk start-to-finish. § 20's own diagram (`new-project → classification → discovery → ... → tasks`) reads as exactly the fixed pipeline the field is moving away from.
+
+§ 20's diagram stays the **recommended default order** for a brand-new project — nothing about it is wrong — but it isn't the *only* legal entry point. Each stage is exposed as an **action**: a named, independently invokable command (`commands/`) backed by a workflow (`workflows/`) with its own declared preconditions, not a mandatory position in one global sequence. `commands/new-project.md` and `workflows/new-project.md` (Phase 0) already work this way — invoked directly, not as an internal step inside a larger pipeline object — so this amendment mostly formalizes what Phase 0 already does, to be applied to the rest of § 20's diagram as those actions get built.
+
+Workflow Contract (§ 149) gains one field, distinct from `inputs` (the data an action consumes):
+
+```yaml
+workflow:
+  # ...existing fields
+  preconditions: []   # lifecycle/readiness/artifact state that must already hold before this action can run
+```
+
+The Workflow Engine's job becomes checking an action's `preconditions`, not enforcing a single fixed global order. Governance and lifecycle (§ 25) still track where a project actually is — this amendment changes how a project *gets* somewhere, not what states exist.
+
+## 163.9 Retrospective as a Lifecycle Reassess Step
+
+Amends: § 25 Lifecycle Engine, § 124 Continuous Intelligence Loop.
+
+Problem: research item P2-10 — pragma.vision's five-phase workflow includes a Retrospective step feeding what happened in implementation back into research/requirements; ProjectFounder's own lifecycle (§ 25) only ever advances forward to `ARCHIVED`, even though § 124's Continuous Intelligence Loop already diagrams exactly this: `REASSESS` loops back into the pipeline near `RESEARCH`, not forward to a dead end. § 25 and § 124 were never wired together — the loop existed only in the § 124 diagram, not as a legal lifecycle transition, which is part of why `docs/OPEN-QUESTIONS.md` Q8 was left open.
+
+`EVOLVING` (§ 25's existing state, immediately before `ARCHIVED`) is where the Retrospective happens: production observations and implementation feedback (Feedback Engine, § 24) are synthesized, written to `MEMORY.md`'s lessons-learned section (§ 163.6), and the project either re-enters the pipeline or is retired:
+
+```text
+EVOLVING -> RESEARCHING   # reassess: re-enter the pipeline, matching § 124's loop exactly
+EVOLVING -> ARCHIVED      # retire: unchanged from § 25's original diagram
+```
+
+`RESEARCHING` is the re-entry point because that's where § 124's own diagram reconnects the loop (just after `IDEA`, at `RESEARCH`) — not `IDEA`/`CAPTURED`/`CLASSIFIED`, since a project that reached `EVOLVING` is already founded and classified. This resolves the `EVOLVING` half of `docs/OPEN-QUESTIONS.md` Q8 specifically; `VALIDATING`/`TESTING`'s own loop-backs aren't diagrammed anywhere in § 124 and this amendment doesn't invent them — Q8 stays open for those.
+
+## 163.10 Autonomy as a Project Setting
+
+Amends: § 9 Agent Engine, § 120 Project Manifest.
+
+Problem: research item P2-9 — spec-kit's own lead maintainer frames agents as "a very capable, very quick intern," not an autonomous developer; ProjectFounder's L0–L5 autonomy scale (§ 9) is already the right model for that framing, but today it's only declared per-agent (e.g. `agents/project-architect.md`'s `autonomy: L1`), with no project-level default a person founding a project can see or set.
+
+`PROJECT.yaml` (§ 120) gains a project-level `default_autonomy` (§ 9's L0–L5 scale); an individual agent's own `autonomy:` field may override this for that agent specifically, but otherwise inherits it:
+
+```yaml
+project:
+  # ...existing fields
+  default_autonomy: L1   # § 9 — L0-L5; project-level default, overridable per agent
+```
+
+This makes autonomy a decision the person founding the project makes explicitly, not an implementation detail buried in individual agent contracts.
+
+## 163.11 Evidence as the Visible Differentiator
+
+Amends: none — positioning only, no engine, artifact, or contract changes.
+
+Problem: research item P2-7 — HN's single loudest tactical critique of the whole SDD field is "no evidence, no attempt to create evidence" and unfalsifiable "coverage claims pushed as fact." ProjectFounder already has an Evidence Model (§ 36) and source/freshness tracking (§ 37, generalized further by § 163.7) — the gap isn't architecture, it's that nothing in this repo's own README or positioning says so.
+
+Tracked here so it isn't lost, deliberately not acted on yet: `README.md`'s pitch should name the Evidence Model and freshness/drift tracking as differentiators once there's a real run to point to (an actual project founded with actual evidence recorded), not asserted abstractly — asserting it now, with no real run behind it, would repeat the exact "claims without citations" failure mode being cited.

@@ -30,12 +30,12 @@ states:
   - EVOLVING
   - ARCHIVED
 
-# Baseline transitions, exactly as diagrammed in § 25 (linear, one direction
-# per state). The spec's diagram does not itself specify loop-backs (e.g. a
-# failed VALIDATING returning to SPECIFYING) or early exits to ARCHIVED from
-# a non-terminal state, so none are encoded here — see
-# docs/OPEN-QUESTIONS.md Q8 rather than inventing transition rules the spec
-# doesn't state.
+# Baseline transitions, as diagrammed in § 25, plus the one loop-back
+# § 163.9 makes explicit (EVOLVING -> RESEARCHING, matching § 124's
+# Continuous Intelligence Loop). Other loop-backs (e.g. a failed VALIDATING
+# returning to SPECIFYING) aren't diagrammed anywhere in the spec, so none
+# are encoded here — see docs/OPEN-QUESTIONS.md Q8 rather than inventing
+# transition rules the spec doesn't state.
 transitions:
   IDEA: [CAPTURED]
   CAPTURED: [CLASSIFIED]
@@ -51,5 +51,5 @@ transitions:
   BETA: [PRODUCTION]
   PRODUCTION: [OPERATING]
   OPERATING: [EVOLVING]
-  EVOLVING: [ARCHIVED]
+  EVOLVING: [RESEARCHING, ARCHIVED]   # § 163.9: RESEARCHING = reassess, ARCHIVED = retire
   ARCHIVED: []

@@ -99,3 +99,7 @@ properties:
         type: string
         format: date
         description: "Bumped on every write to this file. Per § 148."
+      default_autonomy:
+        type: string
+        description: "§ 163.10 — project-level default from § 9's L0-L5 scale. An individual agent's own autonomy field (agents/*.md) may override this."
+        enum: [L0, L1, L2, L3, L4, L5]

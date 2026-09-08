@@ -47,7 +47,7 @@ workflow:
 1. If `idea.md` doesn't exist for this project yet, write it from what the user described.
 2. Copy `templates/core/PROJECT.yaml` to the project's root as `PROJECT.yaml`.
 3. Fill `id` (kebab-case slug) and `name`.
-4. Set `created_at` to today's date; set `updated_at` to the same value (§ 148 requires both on every artifact).
+4. Set `created_at` to today's date; set `updated_at` to the same value (§ 148 requires both on every artifact). Leave `default_autonomy` at the template's `L1` default unless the user says otherwise (§ 163.10).
 5. Set `lifecycle: CAPTURED` (already the template default) — this is the first transition per `config/lifecycle.yaml` (`IDEA -> CAPTURED`).
 
 ### 2. Classify

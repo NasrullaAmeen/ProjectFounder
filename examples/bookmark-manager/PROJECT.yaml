@@ -28,3 +28,4 @@ project:
   documentation_depth: STANDARD
   created_at: "2026-09-08"
   updated_at: "2026-09-08"
+  default_autonomy: L1

@@ -14,7 +14,10 @@ Status values: `todo`, `in-progress`, `done`, `deferred`.
 - [x] `done` — Created this repo's own instance of spec § 88 Core Project Artifacts (the subset with real content today): `docs/DECISIONS.md`, `docs/ASSUMPTIONS.md`, `docs/CONSTRAINTS.md`, `docs/NON-GOALS.md`, `docs/OPEN-QUESTIONS.md`, `docs/LIMITATIONS.md`, `docs/REFERENCES.md` — see `docs/DECISIONS.md` D004.
 - [x] `done` — § 163.6 Session context persistence amendment (`MEMORY.md`, required session-bootstrap step).
 - [x] `done` — § 163.7 Anti-drift detection loop amendment (`drift_status` on every canonical artifact, wired to the Feedback Engine).
-- [ ] `todo` — P2 research recommendations: "actions not phases" wording for the Workflow Engine (§ 20), retrospective/feedback step at end of lifecycle (§ 25).
+- [x] `done` — § 163.8 Actions, Not Phases (Workflow Engine reframed as invokable actions with preconditions).
+- [x] `done` — § 163.9 Retrospective lifecycle step (`EVOLVING -> RESEARCHING`, synced into `config/lifecycle.yaml`).
+- [x] `done` — § 163.10 Autonomy as a project setting (`default_autonomy`, synced into `schemas/project.schema.yaml`, `templates/core/PROJECT.yaml`, `examples/bookmark-manager/PROJECT.yaml`, `workflows/new-project.md`).
+- [x] `done` — § 163.11 Evidence-forward positioning — logged as tracked-not-acted-on by design (no real run to point to yet).
 
 ## Phase 0 — Foundation (spec § 140)
 
