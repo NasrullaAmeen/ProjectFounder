@@ -55,6 +55,7 @@ workflow:
 1. Read `config/project-types.yaml`. For each dimension (`product`, `application`, `technical`, `ai`, `deployment`), decide which listed values apply — zero, one, or several are valid (§ 28: "multiple classifications may apply"). If the idea genuinely needs a label that isn't in the taxonomy, put it under `types.other.<dimension>` (§ 163.5) — don't invent a new enumerated value and don't drop the information.
 2. Set `intent` (§ 27). Default is `CREATE`; change it if the user's own words indicate otherwise (e.g. "clone", "rebuild", "improve an existing project").
 3. If `intent` is not `CREATE`, do **not** proceed to Discovery once this workflow ends — the § 163.2 Explore step runs first, targeting lifecycle `EXPLORING` (§ 163.12). This workflow doesn't set that state itself (Explore isn't implemented, Phase 1/2) — leave the project at `CLASSIFIED` and tell the user the next stage is Explore, not Discovery.
+   - If the idea plausibly fits two or more of § 27's values (e.g. an idea that reads as `REBUILD`, `MIGRATE`, and `EXTEND` all at once), don't silently pick one: follow `agents/project-architect.md`'s escalation rule (§ 163.13) — set `intent` to the single closest-fit value, but record the rejected candidates and the reasoning in the project's `OPEN-QUESTIONS.md` (§ 111).
 4. Set an initial `complexity` estimate (§ 116) — a first guess, refined later by the Gap Analysis / Architecture engines (not yet implemented).
 5. Advance `lifecycle: CLASSIFIED` (`CAPTURED -> CLASSIFIED` per `config/lifecycle.yaml`) and bump `updated_at`.
 

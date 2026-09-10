@@ -1,0 +1,38 @@
+# Founded via workflows/new-project.md against idea.md in this directory.
+# See NOTES.md for what running the workflow actually surfaced — in
+# particular why `intent: MIGRATE` was chosen over the other two candidates
+# this idea plausibly fits (REBUILD, EXTEND), per the § 163.13 escalation
+# rule added as a result of this exercise.
+#
+# Deliberately stops at lifecycle CLASSIFIED (workflows/new-project.md's
+# scope) even though intent != CREATE means EXPLORING (§ 163.2, § 163.12)
+# is the real next step — Explore isn't implemented yet (Phase 1/2).
+
+project:
+  id: ambiguous-intent
+  name: Budgeting App Rebuild
+  version: "0.1"
+  status: "Founded as a worked example stress-testing intent classification against a genuinely ambiguous idea (docs/TASKS.md)."
+  lifecycle: CLASSIFIED
+  mode:
+  intent: MIGRATE
+  types:
+    product: [Internal]
+    application: [Web]
+    technical: []
+    ai: []
+    deployment: [Self-Hosted]
+    other:
+      product: []
+      application: []
+      technical: []
+      ai: []
+      deployment: []
+  complexity: MEDIUM
+  readiness: R0
+  quality_profile: STANDARD
+  research_depth: L1
+  documentation_depth: STANDARD
+  created_at: "2026-09-10"
+  updated_at: "2026-09-10"
+  default_autonomy: L1

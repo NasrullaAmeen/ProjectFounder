@@ -38,6 +38,12 @@ agent:
       action: record all plausible values in PROJECT.yaml types, do not guess a single one
     - condition: intent is not CREATE
       action: do not proceed to Discovery — hand off to the § 163.2 Explore step first
+    - condition: intent is ambiguous across two or more of § 27's values
+      action: >
+        pick the single closest-fit value for `intent` (it stays single-valued;
+        this is not the § 163.5 `other` pattern, which only applies to `types`),
+        but record every rejected candidate and the reasoning in the project's
+        OPEN-QUESTIONS.md (§ 111) instead of silently resolving it (§ 163.13)
 ```
 
 See [ProjectFounder-idea.md](../ProjectFounder-idea.md) (Section 50-51, Agent Architecture / Governance) for the full agent model this contract implements, and `workflows/new-project.md` for the concrete Phase 0 procedure this agent follows.

@@ -1,0 +1,5 @@
+# Idea: Rebuild a budgeting app but keep the core ledger engine
+
+> I have an existing personal budgeting web app (Ruby on Rails + Postgres, self-hosted on my own VPS). I want to rebuild it with a modern React frontend and a redesigned Postgres schema, but keep the existing double-entry ledger engine and bank-import reconciliation logic exactly as they are — that part took two years to get right and I'm not rewriting it.
+
+This is a deliberately ambiguous idea, invented specifically to exercise `workflows/new-project.md`'s intent classification against a case `docs/TASKS.md` flagged as untried: "try a genuinely ambiguous intent (e.g. 'rebuild my app but keep some of the old code')." Unlike `examples/notes-app-extend/` (unambiguous `EXTEND`), this idea has a real claim on three of § 27's values at once — `REBUILD` ("I want to rebuild it"), `MIGRATE` (porting proven business logic onto a new stack), and `EXTEND` (nothing new is being added; the core is kept as-is). See `PROJECT.yaml` for the resolved output and `NOTES.md` for what running the workflow surfaced.

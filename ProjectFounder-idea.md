@@ -5053,3 +5053,24 @@ DISCOVERY
 ```
 
 `CLASSIFIED` now has two legal next states — `EXPLORING` (non-`CREATE` intent) or `DISCOVERY` (`CREATE` intent) — chosen by the project's own `intent` field, not by any new field. `EXPLORING` always advances to `DISCOVERY`, exactly as § 163.2 already diagrams. This doesn't change § 26 Project Modes: Explore is a Research Engine mode (§ 163.2), and the closest existing project mode, `DISCOVERY`, already covers it without needing a new mode value — only the lifecycle *state* was missing, not a mode.
+
+## 163.13 Intent Ambiguity Escalation
+
+Amends: § 27 Project Intent, `agents/project-architect.md` escalation contract.
+
+Problem: found by dogfooding, not external research. Stress-testing `workflows/new-project.md` against a genuinely ambiguous idea (`examples/ambiguous-intent/`, exactly the untried case `docs/TASKS.md` flagged: "rebuild my app but keep some of the old code") showed the existing escalation contract only covers two situations — a `types` dimension torn between two enumerated values (§ 163.5's `other` escape hatch, plus "record all plausible values"), and an intent already resolved to something other than `CREATE`. Neither covers the actual gap hit here: `intent` (§ 27) is a single-valued field, unlike `types`, which is an array per dimension — so there was no schema-compliant way to "record all plausible values" the way § 28 ambiguity is handled when an idea plausibly fits more than one of § 27's fourteen values (this example's idea had a real claim on `REBUILD`, `MIGRATE`, and `EXTEND` simultaneously). Left as-is, an agent facing this has no defined procedure and would either block indefinitely or silently guess one value — the latter being exactly what `AGENT.md`'s "surface uncertainty" rule forbids.
+
+`agents/project-architect.md` gains a third escalation rule, distinct from the existing "intent is not `CREATE`" one:
+
+```yaml
+escalation:
+  # ...existing rules
+  - condition: intent is ambiguous across two or more of § 27's values
+    action: >
+      pick the single closest-fit value for `intent` (it stays single-valued;
+      this is not the § 163.5 `other` pattern — that only applies to `types`),
+      but record every rejected candidate and the reasoning in the project's
+      OPEN-QUESTIONS.md (§ 111) instead of silently resolving it
+```
+
+This doesn't add a field to `schemas/project.schema.yaml` — `intent` keeps its § 27 enum shape, still single-valued — because the ambiguity and the reasoning behind the resolution are exactly what `OPEN-QUESTIONS.md` (§ 111) already exists to hold; a parallel `intent_candidates` field on `PROJECT.yaml` would duplicate that and repeat the "generate every possible field" over-scoping § 139 forbids. `workflows/new-project.md`'s approvals gate ("classification ambiguous or intent is not CREATE") already reads broadly enough to cover this without a wording change — it was the underlying agent contract, not the workflow, that had no rule to point to.

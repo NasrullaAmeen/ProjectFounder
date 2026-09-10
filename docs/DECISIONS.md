@@ -297,6 +297,47 @@ decision:
     - workflows/new-project.md
 ```
 
+### D010 — Add an intent-ambiguity escalation rule instead of an `intent_candidates` field
+
+```yaml
+decision:
+  id: D010
+  title: Give intent ambiguity an escalation path, without making `intent` multi-valued
+  context: >
+    Exercising workflows/new-project.md against a third worked example
+    (examples/ambiguous-intent/, deliberately fitting REBUILD, MIGRATE, and
+    EXTEND at once) showed the escalation contract only handled `types`
+    ambiguity (an array field, via the § 163.5 `other`/"record all plausible
+    values" pattern) and "intent is not CREATE" (which assumes intent has
+    already resolved to one value). Nothing covered intent itself being
+    ambiguous, and intent is schema-typed as a single string enum, so the
+    § 163.5 pattern doesn't transfer directly.
+  options:
+    - Make `intent` an array (like `types`), recording every plausible candidate
+    - Add an `intent_candidates` field alongside the existing single-valued `intent`
+    - Keep `intent` single-valued; add an escalation rule that picks the closest fit and records rejected candidates + reasoning in the project's own OPEN-QUESTIONS.md
+  selected: Keep `intent` single-valued; escalate via OPEN-QUESTIONS.md
+  rationale: >
+    Making `intent` an array would change what every existing consumer of
+    the field (§ 163.2's Explore gate, § 163.12's lifecycle branch, the
+    approvals gate in workflows/new-project.md) means by "the" intent, for
+    a case that's rare relative to the churn of a schema change. An
+    `intent_candidates` field would duplicate what OPEN-QUESTIONS.md (§ 111)
+    already exists to hold, repeating the "generate every possible field"
+    over-scoping § 139 forbids. The escalation-rule approach costs nothing
+    schema-side and reuses an artifact that already has exactly this job.
+  evidence: examples/ambiguous-intent/NOTES.md
+  confidence: MEDIUM
+  reversibility: EASY
+  approval: RECOMMEND
+  dependencies: []
+  affected_artifacts:
+    - "ProjectFounder-idea.md § 163.13"
+    - agents/project-architect.md
+    - workflows/new-project.md
+    - examples/ambiguous-intent/PROJECT.yaml
+```
+
 ## Conventions
 
 - Add a new `D0NN` entry per decision that would be non-obvious from the diff alone — not for every commit.

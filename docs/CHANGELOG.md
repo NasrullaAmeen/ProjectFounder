@@ -6,6 +6,14 @@ This changelog tracks ProjectFounder's own development (the repo you're reading)
 
 ## [Unreleased]
 
+### Added — third worked example
+
+- `examples/ambiguous-intent/`: an invented idea that plausibly fits three of § 27's intent values at once (`REBUILD`, `MIGRATE`, `EXTEND`), run through `workflows/new-project.md` specifically to try the case `docs/TASKS.md` had flagged as untried — a genuinely ambiguous intent (`idea.md`, `PROJECT.yaml`, `NOTES.md`).
+
+### Fixed
+
+- `agents/project-architect.md`'s escalation contract had no rule for `intent` itself being ambiguous — only for `types` ambiguity (§ 163.5) and for intent already resolved to non-`CREATE`. Found while building the third worked example. Added `ProjectFounder-idea.md` § 163.13 "Intent Ambiguity Escalation": pick the single closest-fit value for `intent` (it stays single-valued, unlike `types`), and record the rejected candidates plus the reasoning in the project's `OPEN-QUESTIONS.md` (§ 111) instead of silently resolving it. Logged as `docs/DECISIONS.md` D010.
+
 ### Added — spec
 
 - `ProjectFounder-idea.md` § 163.6 "Session Context Persistence": `MEMORY.md` joins § 88's Core Project Artifacts (scoped to user preferences, implementation discoveries, and lessons learned — not duplicating `DECISIONS.md`/`ASSUMPTIONS.md`/research artifacts), plus a required session-bootstrap step (`PROJECT.yaml`, `MEMORY.md`, `DECISIONS.md`, `OPEN-QUESTIONS.md` read before any engine runs). Resolves the Memory Engine half of `docs/OPEN-QUESTIONS.md` Q3.

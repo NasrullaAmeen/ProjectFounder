@@ -32,7 +32,7 @@ Complete for its declared scope, agent-executed per `docs/DECISIONS.md` D005 (no
 - [ ] `todo` — "Schema validation loader" / "Configuration/policy loader" as originally scoped (a program that reads `schemas/*.schema.yaml` / `config/*.yaml` and validates automatically) — deliberately not built; Phase 0 validation is agent-judged per D005. Revisit if/when this stops scaling (`docs/OPEN-QUESTIONS.md` Q2).
 - [x] `done` — Exercised `workflows/new-project.md` end-to-end against the § 123 bookmark-manager idea: `examples/bookmark-manager/`. Found and fixed a real gap (missing `created_at`/`updated_at` in the schema/template). Found and fixed a second gap via § 163.5 (classification escape hatch, `docs/DECISIONS.md` D006) — see `examples/bookmark-manager/NOTES.md`.
 - [x] `done` — Stress-tested the § 163.2 Explore branch with a second, non-`CREATE` example: `examples/notes-app-extend/`. Found and fixed a real gap — § 25's lifecycle had no state for the Explore step — via § 163.12 (`docs/DECISIONS.md` D009) — see `examples/notes-app-extend/NOTES.md`.
-- [ ] `todo` — Try a genuinely ambiguous intent (e.g. "rebuild my app but keep some of the old code") — every example so far has had a single, unambiguous intent classification (`examples/notes-app-extend/NOTES.md` takeaway).
+- [x] `done` — Tried a genuinely ambiguous intent ("rebuild my app but keep some of the old code"): `examples/ambiguous-intent/`. Found and fixed a real gap — the escalation contract had no rule for `intent` itself being ambiguous (only for `types` ambiguity) — via § 163.13 (`docs/DECISIONS.md` D010) — see `examples/ambiguous-intent/NOTES.md`.
 
 ## Phases 1–8
 
