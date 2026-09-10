@@ -417,6 +417,47 @@ decision:
     - skills/gap-analysis/SKILL.md
 ```
 
+### D013 — Add a SCOPED lifecycle state instead of overloading RESEARCHING
+
+```yaml
+decision:
+  id: D013
+  title: Give Gap Analysis/Feature Discovery/Requirements a lifecycle state that doesn't overclaim Research happened
+  context: >
+    Wiring workflows/requirements.md (Gap Analysis -> Feature Discovery ->
+    Requirements) against a DISCOVERY-lifecycle project hit the same shape
+    of gap D009 already fixed once for EXPLORING: DISCOVERY's only legal
+    next state in config/lifecycle.yaml is RESEARCHING, but this workflow
+    doesn't do any research (§ 163.8 Actions, Not Phases already permits
+    running it out of § 20's default order, since its own preconditions -
+    lifecycle == DISCOVERY, a draft FEATURES.md - don't require Research).
+    Setting lifecycle: RESEARCHING at the end would misrepresent that
+    research happened; leaving it at DISCOVERY would be stale (real work
+    happened).
+  options:
+    - Advance to RESEARCHING anyway, treating it loosely as "past Discovery"
+    - Leave lifecycle at DISCOVERY, unchanged
+    - Add a new SCOPED state, a second legal branch from DISCOVERY alongside RESEARCHING (mirroring D009's EXPLORING branch)
+  selected: Add SCOPED (§ 163.14)
+  rationale: >
+    The first option makes RESEARCHING a lie; the second makes DISCOVERY
+    stale despite three engines' worth of real output. Adding one state,
+    in the same branching shape § 163.12 already established for EXPLORING,
+    is the smallest change that lets PROJECT.yaml.lifecycle keep meaning
+    what it says.
+  evidence: workflows/requirements.md
+  confidence: MEDIUM
+  reversibility: EASY
+  approval: RECOMMEND
+  dependencies: [D009, D012]
+  affected_artifacts:
+    - "ProjectFounder-idea.md § 163.14"
+    - config/lifecycle.yaml
+    - schemas/project.schema.yaml
+    - workflows/requirements.md
+    - docs/OPEN-QUESTIONS.md
+```
+
 ## Conventions
 
 - Add a new `D0NN` entry per decision that would be non-obvious from the diff alone — not for every commit.

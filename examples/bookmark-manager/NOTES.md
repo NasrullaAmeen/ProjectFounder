@@ -75,3 +75,29 @@ Second exercise of this directory, now testing the first Phase 1 workflow agains
 ## Takeaway
 
 Same pattern as the Phase 0 exercises: the workflow's own step sequence (precondition-check → discover → brainstorm → advance-lifecycle) held up fine, and the real gap was one level down, in a skill's procedure that under-specified how a step actually resolves in the common case (a live user) versus the edge case (no user) it happened to be tested against first. Worth remembering for the next Phase 1 slice (Requirements/Feature Discovery/Gap Analysis): check that a procedure's steps make sense for *both* an interactive run and an offline worked-example run, not just whichever one gets exercised first.
+
+---
+
+# Notes: running workflows/requirements.md (Phase 1 — Gap Analysis + Feature Discovery + Requirements)
+
+Third exercise of this directory: Gap Analysis → Feature Discovery → Requirements against the `DISCOVERY`-lifecycle project `workflows/brainstorm.md` left behind. Input: this directory's `FEATURES.md` (draft, 16 candidates), `CONSTRAINTS.md`, `ASSUMPTIONS.md`, `OPEN-QUESTIONS.md`. Output: `FEATURES.md` gap-filled (24 candidates) and fully tiered; `REQUIREMENTS.md` added (11 MVP requirements); `OPEN-QUESTIONS.md` Q2 resolved; `PROJECT.yaml` advanced to lifecycle `SCOPED`.
+
+## What worked
+
+- The precondition check was clean: `lifecycle: DISCOVERY` and an existing draft `FEATURES.md` both held.
+- Gap Analysis's 8 new candidates matched § 123 Step 8's own canonical gap list for this exact idea almost one-for-one (Account deletion, Bookmark deduplication, Broken links, Privacy, Search indexing, Data portability, Extension permissions, Rate limits) — with two exceptions, "AI cost" and "AI privacy," which were already covered by `OPEN-QUESTIONS.md` Q1 (local vs. cloud AI) rather than needing a duplicate `FEATURES.md` entry. That's `skills/gap-analysis/SKILL.md`'s "gap-check against what's already there, don't re-derive" instruction working as intended — the first real test of it not just adding everything the canonical list mentions without checking for overlap first.
+- Feature Discovery's MVP/V1/V2/Future tiering doubled as the resolution for `OPEN-QUESTIONS.md` Q2 ("is the browser extension required for MVP?") — tiering it MVP *was* answering that question, not a separate step. Worth noting for future runs: Feature Discovery should always check whether an open question is actually "which tier does this land in" in disguise before treating it as still open.
+- Requirements produced one `REQ-<NNN>` per MVP feature (11 total) cleanly, each traceable to a `FEATURES.md` row; 3 of 11 ended up `judged` rather than `executable` (§ 163.4) because the check they'd need — relevance quality, a specific indexing-latency bound, an automated manifest-permission scan — doesn't exist yet, not because the requirement itself was ambiguous.
+- `agents/product-agent.md`'s "mark provisional if competitive positioning needs unavailable research" escalation never fired — every tier call in this run was decidable from internal signals (the idea, constraints, assumptions) alone. Still untested: an idea where a tier call genuinely can't be made without knowing what competitors already do.
+
+## What broke: DISCOVERY had nowhere honest to go
+
+Wiring `workflows/requirements.md` hit the same shape of gap `examples/notes-app-extend/NOTES.md` (§ 163.12, `EXPLORING`) found once already: `config/lifecycle.yaml`'s only legal next state from `DISCOVERY` was `RESEARCHING`, but this workflow does no research. Setting `lifecycle: RESEARCHING` at the end would have overclaimed research happened; leaving it at `DISCOVERY` would understate three engines' worth of real output.
+
+## Fixed: § 163.14 adds a SCOPED lifecycle state
+
+Added `SCOPED` as a second legal branch from `DISCOVERY` (alongside `RESEARCHING`), landed on when Gap Analysis/Feature Discovery/Requirements run before Research — licensed by § 163.8 Actions, Not Phases, which already permits running an action out of § 20's default order as long as its own preconditions hold. Left deliberately open: whether `DESIGNING` should still require `SCOPED`'s `REQUIREMENTS.md` even when a project reaches `RESEARCHING` the other way (straight from `DISCOVERY`, skipping this workflow) — logged as `docs/OPEN-QUESTIONS.md` Q10 rather than guessed at, since neither Research nor Architecture is built yet to actually test it against. See `docs/DECISIONS.md` D013.
+
+## Takeaway
+
+Third exercise, same underlying lesson as the first two: the workflow's own step sequence held up, and the real gap was in the lifecycle model underneath it — specifically, that § 163.8's "actions can run out of order" license doesn't automatically give the lifecycle state machine anywhere to represent having done so. Two of these gaps now (`EXPLORING`, `SCOPED`) share the same shape: a real, reachable project condition with no state to land on. Worth checking proactively next time a new workflow is wired, rather than waiting to hit it.

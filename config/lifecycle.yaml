@@ -18,6 +18,7 @@ states:
   - CLASSIFIED
   - EXPLORING   # § 163.12 — non-CREATE intent only, between CLASSIFIED and DISCOVERY
   - DISCOVERY
+  - SCOPED      # § 163.14 — Gap Analysis/Feature Discovery/Requirements done, an alternate branch from DISCOVERY alongside RESEARCHING
   - RESEARCHING
   - DESIGNING
   - SPECIFYING
@@ -36,16 +37,23 @@ states:
 # - CLASSIFIED -> EXPLORING / EXPLORING -> DISCOVERY (§ 163.12): CLASSIFIED's
 #   two legal next states are chosen by the project's `intent` field — a
 #   non-CREATE intent goes to EXPLORING first, CREATE skips straight to
-#   DISCOVERY. Other loop-backs (e.g. a failed VALIDATING returning to
-#   SPECIFYING) aren't diagrammed anywhere in the spec, so none are encoded
-#   here — see docs/OPEN-QUESTIONS.md Q8 rather than inventing transition
-#   rules the spec doesn't state.
+#   DISCOVERY.
+# - DISCOVERY -> SCOPED / SCOPED -> RESEARCHING (§ 163.14): DISCOVERY's two
+#   legal next states are chosen by which action runs next (workflows/requirements.md
+#   vs. a future Research workflow), not a PROJECT.yaml field. Whether
+#   RESEARCHING -> DESIGNING should require SCOPED's output (REQUIREMENTS.md)
+#   first is unresolved — see docs/OPEN-QUESTIONS.md.
+#   Other loop-backs (e.g. a failed VALIDATING returning to SPECIFYING)
+#   aren't diagrammed anywhere in the spec, so none are encoded here — see
+#   docs/OPEN-QUESTIONS.md Q8 rather than inventing transition rules the
+#   spec doesn't state.
 transitions:
   IDEA: [CAPTURED]
   CAPTURED: [CLASSIFIED]
   CLASSIFIED: [EXPLORING, DISCOVERY]   # § 163.12: EXPLORING if intent != CREATE, else DISCOVERY
   EXPLORING: [DISCOVERY]
-  DISCOVERY: [RESEARCHING]
+  DISCOVERY: [RESEARCHING, SCOPED]     # § 163.14: SCOPED if Gap Analysis/Feature Discovery/Requirements run first
+  SCOPED: [RESEARCHING]                # § 163.14
   RESEARCHING: [DESIGNING]
   DESIGNING: [SPECIFYING]
   SPECIFYING: [VALIDATING]

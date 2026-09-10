@@ -4,8 +4,8 @@
 
 | # | Question | Status | Blocks |
 |---|---|---|---|
-| Q1 | Should AI (semantic search / summaries) run locally or via a cloud provider? Affects both the "free" constraint (API cost) and the self-hosting story (a cloud-only AI dependency undercuts self-hosting's value). | `open` | Architecture (Phase 3) and Budget (Phase 5), once built |
-| Q2 | Is the browser extension required for MVP, or a later-tier feature? `idea.md` lists it alongside web app and PWA with no MVP scoping stated. | `open` | Feature Discovery's MVP/V1/V2/Future tiering (§ 123 Step 9, not yet built) |
+| Q1 | Should AI (semantic search / summaries) run locally or via a cloud provider? Affects both the "free" constraint (API cost) and the self-hosting story (a cloud-only AI dependency undercuts self-hosting's value). Also covers Gap Analysis's "AI cost"/"AI privacy" categories (§ 123 Step 8) — see `FEATURES.md`. | `open` | Architecture (Phase 3) and Budget (Phase 5), once built |
+| Q2 | Is the browser extension required for MVP, or a later-tier feature? `idea.md` lists it alongside web app and PWA with no MVP scoping stated. | `resolved` — tiered MVP by `workflows/requirements.md`'s Feature Discovery step; see `FEATURES.md` | — |
 
 ## Conventions
 

@@ -6,6 +6,15 @@ This changelog tracks ProjectFounder's own development (the repo you're reading)
 
 ## [Unreleased]
 
+### Added — Phase 1 (§ 140), Gap Analysis → Feature Discovery → Requirements workflow
+
+- Added `workflows/requirements.md` and `commands/requirements.md`, wiring `agents/gap-analysis-agent.md` → `agents/product-agent.md` (Feature Discovery) → `agents/requirements-agent.md` into one action: `FEATURES.md` (draft) → `FEATURES.md` (gap-filled + tiered) → `REQUIREMENTS.md`, lifecycle `DISCOVERY` → `SCOPED`.
+- `examples/bookmark-manager/`: ran it end-to-end — `FEATURES.md` grew from 16 draft candidates to 24 gap-filled, fully tiered ones; `REQUIREMENTS.md` added (11 MVP requirements); `OPEN-QUESTIONS.md` Q2 resolved (Feature Discovery's tiering answered it). See `examples/bookmark-manager/NOTES.md`.
+
+### Fixed — Phase 1, lifecycle
+
+- `config/lifecycle.yaml`'s only legal next state from `DISCOVERY` was `RESEARCHING`, but `workflows/requirements.md` does no research (§ 163.8 Actions, Not Phases already permits running it out of § 20's default order). Setting `RESEARCHING` would have overclaimed research happened. Added `ProjectFounder-idea.md` § 163.14 "A Lifecycle State for Scoping Ahead of Research": `SCOPED` joins the lifecycle as a second branch from `DISCOVERY`, always advancing to `RESEARCHING`. Synced into `config/lifecycle.yaml` and `schemas/project.schema.yaml`. Logged as `docs/DECISIONS.md` D013. Left open whether `DESIGNING` should require `SCOPED`'s `REQUIREMENTS.md` even when `RESEARCHING` is reached the other way — `docs/OPEN-QUESTIONS.md` Q10.
+
 ### Added — Phase 1 (§ 140), Requirements/Feature Discovery/Gap Analysis contracts
 
 - Fleshed out `agents/requirements-agent.md` (new), `agents/gap-analysis-agent.md` (new), and the Feature Discovery half of `agents/product-agent.md`, plus `skills/requirements/`, `skills/gap-analysis/`, and `skills/feature-discovery/` (all fleshed from blank stubs).

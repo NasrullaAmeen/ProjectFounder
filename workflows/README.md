@@ -6,5 +6,6 @@ Planned initial workflows (Section 143): `new-project`, `brainstorm`, `deep-rese
 
 - [`new-project.md`](./new-project.md) — implemented for Phase 0 (capture + classify, stops at lifecycle CLASSIFIED).
 - [`brainstorm.md`](./brainstorm.md) — implemented for Phase 1 (Discovery + Brainstorm, CLASSIFIED -> DISCOVERY).
+- [`requirements.md`](./requirements.md) — implemented for Phase 1 (Gap Analysis + Feature Discovery + Requirements, DISCOVERY -> SCOPED).
 
-Status: Phase 0 and part of Phase 1 implemented (agent-executed, no code — see `docs/DECISIONS.md` D005). All other planned workflows not yet added.
+Status: Phase 0 and Phase 1 implemented (agent-executed, no code — see `docs/DECISIONS.md` D005). All other planned workflows not yet added.

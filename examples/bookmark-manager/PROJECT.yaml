@@ -1,13 +1,14 @@
 # Founded via workflows/new-project.md against idea.md in this directory.
-# Taken through Discovery + Brainstorm via workflows/brainstorm.md.
-# See NOTES.md for what running both workflows actually surfaced.
+# Taken through Discovery + Brainstorm via workflows/brainstorm.md, then
+# Gap Analysis + Feature Discovery + Requirements via workflows/requirements.md.
+# See NOTES.md for what running all three workflows actually surfaced.
 
 project:
   id: bookmark-manager
   name: Bookmark Manager
   version: "0.1"
-  status: "Founded via workflows/new-project.md (§ 123); Discovery + Brainstorm run via workflows/brainstorm.md (Phase 1)."
-  lifecycle: DISCOVERY
+  status: "Founded via workflows/new-project.md (§ 123); Discovery + Brainstorm, then Gap Analysis + Feature Discovery + Requirements, run via workflows/brainstorm.md and workflows/requirements.md (Phase 1)."
+  lifecycle: SCOPED
   mode:
   intent: CREATE
   types:

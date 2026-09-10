@@ -5074,3 +5074,21 @@ escalation:
 ```
 
 This doesn't add a field to `schemas/project.schema.yaml` — `intent` keeps its § 27 enum shape, still single-valued — because the ambiguity and the reasoning behind the resolution are exactly what `OPEN-QUESTIONS.md` (§ 111) already exists to hold; a parallel `intent_candidates` field on `PROJECT.yaml` would duplicate that and repeat the "generate every possible field" over-scoping § 139 forbids. `workflows/new-project.md`'s approvals gate ("classification ambiguous or intent is not CREATE") already reads broadly enough to cover this without a wording change — it was the underlying agent contract, not the workflow, that had no rule to point to.
+
+## 163.14 A Lifecycle State for Scoping Ahead of Research
+
+Amends: § 25 Lifecycle Engine.
+
+Problem: found by dogfooding, not external research. Wiring `workflows/requirements.md` (Gap Analysis → Feature Discovery → Requirements, § 7.8/§ 7.7/§ 7.9) against a `DISCOVERY`-lifecycle project ran into the same shape of gap § 163.12 already found once: § 25's diagram only has one legal next state from `DISCOVERY` — `RESEARCHING` — but Gap Analysis/Feature Discovery/Requirements don't need Research to run (§ 163.8 Actions, Not Phases already licenses running an action out of § 20's "recommended default order" as long as its own preconditions hold; both `agents/gap-analysis-agent.md` and `agents/product-agent.md`'s Feature Discovery half degrade a competitive-positioning sub-case to "provisional" rather than hard-blocking on Research). § 163.8's own closing line is explicit that it "changes how a project *gets* somewhere, not what states exist" — so the license to reorder actions doesn't by itself give a project anywhere honest to say it *is* once this reordered action finishes; a project that just ran Gap Analysis/Feature Discovery/Requirements without Research has nowhere to go but a stale `DISCOVERY` or a `RESEARCHING` that overclaims research happened.
+
+`SCOPED` joins § 25's lifecycle states, as a second legal next-state from `DISCOVERY` alongside `RESEARCHING` — the same branching shape § 163.12 already used for `EXPLORING`:
+
+```text
+DISCOVERY
+ ↓                    (Gap Analysis/Feature Discovery/Requirements run first)
+SCOPED ────────────→ RESEARCHING
+ ↓                    (Research runs first, § 20's default order)
+RESEARCHING
+```
+
+`DISCOVERY` now has two legal next states — `RESEARCHING` or `SCOPED` — chosen by which action a project runs next, not by any `PROJECT.yaml` field (unlike `CLASSIFIED`'s `intent`-driven branch in § 163.12, this branch is driven by which workflow a human/agent actually invokes). `SCOPED` always advances to `RESEARCHING`. This deliberately leaves one thing unresolved rather than over-solving it: if `RESEARCHING` is entered directly from `DISCOVERY` (skipping `SCOPED`), whether `DESIGNING` (Architecture, which `agents/architecture-agent.md` already says designs "from validated requirements") should still require `SCOPED`'s output (`REQUIREMENTS.md`) to exist before it can start — that's a join-point question for whenever Research (Phase 2) and Architecture (Phase 3) actually get built, tracked as `docs/OPEN-QUESTIONS.md` rather than guessed at now.
