@@ -23,7 +23,9 @@ agent:
   policies:
     - ../config/agent-policy.yaml
   evaluation: []
-  escalation: []
+  escalation:
+    - condition: REQUIREMENTS.md doesn't exist yet
+      action: do not run — Architecture designs from validated requirements (§ 163.15); this holds whether the project reached RESEARCHING via SCOPED or directly from DISCOVERY, so run Gap Analysis/Feature Discovery/Requirements first regardless of path
 ```
 
 See [ProjectFounder-idea.md](../ProjectFounder-idea.md) (Section 50-51, Agent Architecture / Governance) for the full agent model this contract implements.

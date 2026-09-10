@@ -40,9 +40,10 @@ states:
 #   DISCOVERY.
 # - DISCOVERY -> SCOPED / SCOPED -> RESEARCHING (§ 163.14): DISCOVERY's two
 #   legal next states are chosen by which action runs next (workflows/requirements.md
-#   vs. a future Research workflow), not a PROJECT.yaml field. Whether
-#   RESEARCHING -> DESIGNING should require SCOPED's output (REQUIREMENTS.md)
-#   first is unresolved — see docs/OPEN-QUESTIONS.md.
+#   vs. a future Research workflow), not a PROJECT.yaml field. RESEARCHING ->
+#   DESIGNING always requires REQUIREMENTS.md to exist (§ 163.15) — that's a
+#   precondition on the DESIGNING/Architecture action, not a third state here;
+#   see agents/architecture-agent.md and docs/DECISIONS.md D014.
 #   Other loop-backs (e.g. a failed VALIDATING returning to SPECIFYING)
 #   aren't diagrammed anywhere in the spec, so none are encoded here — see
 #   docs/OPEN-QUESTIONS.md Q8 rather than inventing transition rules the

@@ -5092,3 +5092,11 @@ RESEARCHING
 ```
 
 `DISCOVERY` now has two legal next states — `RESEARCHING` or `SCOPED` — chosen by which action a project runs next, not by any `PROJECT.yaml` field (unlike `CLASSIFIED`'s `intent`-driven branch in § 163.12, this branch is driven by which workflow a human/agent actually invokes). `SCOPED` always advances to `RESEARCHING`. This deliberately leaves one thing unresolved rather than over-solving it: if `RESEARCHING` is entered directly from `DISCOVERY` (skipping `SCOPED`), whether `DESIGNING` (Architecture, which `agents/architecture-agent.md` already says designs "from validated requirements") should still require `SCOPED`'s output (`REQUIREMENTS.md`) to exist before it can start — that's a join-point question for whenever Research (Phase 2) and Architecture (Phase 3) actually get built, tracked as `docs/OPEN-QUESTIONS.md` rather than guessed at now.
+
+## 163.15 Architecture's Requirements Precondition, Regardless of Path
+
+Amends: § 163.14's join-point question. Resolves: `docs/OPEN-QUESTIONS.md` Q10.
+
+`DESIGNING` (Architecture) requires `REQUIREMENTS.md` to exist, whether `RESEARCHING` was entered via `SCOPED` or directly from `DISCOVERY`. This is a precondition on the Architecture action itself (§ 163.8 Actions, Not Phases: preconditions live on actions, not on lifecycle states), not a third branch in § 25's state machine — `RESEARCHING → DESIGNING` stays the single transition `config/lifecycle.yaml` already has. A project that reaches `RESEARCHING` directly (skipping `SCOPED`) must still run Gap Analysis/Feature Discovery/Requirements — after or alongside Research — before Architecture can start.
+
+`agents/architecture-agent.md`'s purpose line already says it designs "from validated requirements"; that's not optional prose, so the precondition mirrors the existing pattern in `agents/product-agent.md`'s escalation contract ("`FEATURES.md` doesn't exist yet ... do not run") rather than inventing a new mechanism. See `docs/DECISIONS.md` D014.

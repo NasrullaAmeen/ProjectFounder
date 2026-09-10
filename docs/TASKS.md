@@ -48,7 +48,7 @@ Covers Discovery, Brainstorm, Classification, Requirements, Feature Discovery, G
 
 ## Phase 1 — remaining after this slice
 
-- [ ] `todo` — `docs/OPEN-QUESTIONS.md` Q10: whether `DESIGNING` should require `SCOPED`'s `REQUIREMENTS.md` even when a project reaches `RESEARCHING` directly from `DISCOVERY` (skipping Gap Analysis/Feature Discovery/Requirements). Needs Research (Phase 2) or Architecture (Phase 3) to exist before it's actually testable.
+- [x] `done` — Resolved `docs/OPEN-QUESTIONS.md` Q10: `DESIGNING` always requires `REQUIREMENTS.md`, regardless of whether `RESEARCHING` was reached via `SCOPED` or directly from `DISCOVERY` — encoded as a precondition on the Architecture action (`agents/architecture-agent.md` escalation), not a new lifecycle state. See § 163.15, `docs/DECISIONS.md` D014.
 - [ ] `todo` — Try a Feature Discovery run where a tier call genuinely can't be decided from internal signals alone (needs real competitive research) — every tier call in `examples/bookmark-manager/` was decidable without it, so the "provisional" escalation path (`agents/product-agent.md`) is still unexercised.
 
 ## Phases 2–8

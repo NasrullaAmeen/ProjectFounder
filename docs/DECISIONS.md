@@ -458,6 +458,48 @@ decision:
     - docs/OPEN-QUESTIONS.md
 ```
 
+### D014 — Architecture requires REQUIREMENTS.md as an action precondition, not a lifecycle branch
+
+```yaml
+decision:
+  id: D014
+  title: Resolve Q10 — DESIGNING requires REQUIREMENTS.md regardless of which path reached RESEARCHING
+  context: >
+    § 163.14 (D013) left one thing unresolved: DISCOVERY can reach
+    RESEARCHING either via SCOPED (Gap Analysis/Feature Discovery/
+    Requirements already ran) or directly (skipping them). If entered
+    directly, should DESIGNING still require SCOPED's REQUIREMENTS.md,
+    given agents/architecture-agent.md already says it designs "from
+    validated requirements"? Left open pending Phase 2/3 since it wasn't
+    testable without those engines existing.
+  options:
+    - Leave it unresolved until Phase 2/3 implementation forces the question
+    - Add a third lifecycle branch/state distinguishing "RESEARCHING with requirements" from "RESEARCHING without"
+    - Make REQUIREMENTS.md a precondition on the DESIGNING/Architecture action itself, independent of lifecycle state
+  selected: Precondition on the action (§ 163.15)
+  rationale: >
+    A new lifecycle state would encode a fact about action history (did
+    Requirements run yet) into the state machine, which § 163.8 Actions,
+    Not Phases already argues against - preconditions belong on actions,
+    not states. architecture-agent.md's purpose already names "validated
+    requirements" as a hard input, so the precondition mirrors the existing
+    pattern in product-agent.md's escalation (do not run without its
+    required upstream artifact) rather than inventing new state-machine
+    shape. Resolving now (cheap, no code yet) also avoids deciding it
+    implicitly while drafting research-agent.md's input contract in Phase 2.
+  evidence: agents/architecture-agent.md purpose line; agents/product-agent.md escalation pattern
+  confidence: MEDIUM
+  reversibility: EASY
+  approval: RECOMMEND
+  dependencies: [D013]
+  affected_artifacts:
+    - "ProjectFounder-idea.md § 163.15"
+    - agents/architecture-agent.md
+    - config/lifecycle.yaml
+    - docs/OPEN-QUESTIONS.md
+    - docs/TASKS.md
+```
+
 ## Conventions
 
 - Add a new `D0NN` entry per decision that would be non-obvious from the diff alone — not for every commit.
