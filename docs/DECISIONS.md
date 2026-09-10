@@ -377,6 +377,46 @@ decision:
     - examples/bookmark-manager/FEATURES.md
 ```
 
+### D012 — Gap Analysis routes findings into existing artifacts, no new GAPS.md
+
+```yaml
+decision:
+  id: D012
+  title: Gap Analysis writes into FEATURES.md/OPEN-QUESTIONS.md by category, not a new artifact
+  context: >
+    Fleshing out agents/gap-analysis-agent.md needed a home for what the
+    Gap Analysis Engine (§ 7.8) finds. § 88 Core Project Artifacts has no
+    dedicated "GAPS.md," and § 7.8's own category list (requirements,
+    features, documentation, architecture, security controls, operational
+    systems, testing, budget assumptions, AI safeguards, deployment
+    considerations) maps mostly onto artifacts that either already exist
+    (FEATURES.md) or don't exist until later phases (ARCHITECTURE.md,
+    BUDGET.md, Phase 3/5) - a single new artifact would either duplicate
+    FEATURES.md or need placeholder sections for artifacts nothing else
+    has built yet.
+  options:
+    - Add a new GAPS.md artifact covering all § 7.8 categories in one place
+    - Route each found gap into whichever existing/future artifact already owns that category (FEATURES.md for feature-shaped gaps now; ARCHITECTURE.md/BUDGET.md/etc. once those exist), and OPEN-QUESTIONS.md for genuine unknowns
+  selected: Route into existing artifacts by category
+  rationale: >
+    A new GAPS.md would violate § 81 Documentation Deduplication for the
+    categories that already have a home (FEATURES.md) and would need
+    placeholder sections for categories with no owning artifact yet,
+    repeating the "generate every possible document" over-scoping § 139
+    forbids. Routing by category keeps each artifact the single source of
+    truth for its own domain, and naturally limits Gap Analysis's real
+    scope today to what FEATURES.md/OPEN-QUESTIONS.md can actually hold -
+    matching the phase-by-phase build order already established.
+  evidence: agents/gap-analysis-agent.md, skills/gap-analysis/SKILL.md
+  confidence: MEDIUM
+  reversibility: EASY
+  approval: RECOMMEND
+  dependencies: [D011]
+  affected_artifacts:
+    - agents/gap-analysis-agent.md
+    - skills/gap-analysis/SKILL.md
+```
+
 ## Conventions
 
 - Add a new `D0NN` entry per decision that would be non-obvious from the diff alone — not for every commit.

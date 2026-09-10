@@ -6,6 +6,13 @@ This changelog tracks ProjectFounder's own development (the repo you're reading)
 
 ## [Unreleased]
 
+### Added — Phase 1 (§ 140), Requirements/Feature Discovery/Gap Analysis contracts
+
+- Fleshed out `agents/requirements-agent.md` (new), `agents/gap-analysis-agent.md` (new), and the Feature Discovery half of `agents/product-agent.md`, plus `skills/requirements/`, `skills/gap-analysis/`, and `skills/feature-discovery/` (all fleshed from blank stubs).
+- Corrected the dependency order in the process: Brainstorm → Gap Analysis (appends missed features to `FEATURES.md`) → Feature Discovery (tiers the full list into MVP/V1/V2/Future) → Requirements (writes `REQUIREMENTS.md` against the tiered list) — matching § 123 Steps 5/8/9/10, not an arbitrary order.
+- Resolved where Gap Analysis's findings live — routed into `FEATURES.md`/`OPEN-QUESTIONS.md` by category, no new `GAPS.md` artifact. Logged as `docs/DECISIONS.md` D012.
+- None of the three are wired to a workflow or exercised yet — contracts only this round.
+
 ### Added — Phase 1 (§ 140), Discovery + Brainstorm slice
 
 - Fleshed out `agents/discovery-agent.md` and `agents/brainstorm-agent.md` (new), plus `skills/discovery/SKILL.md` (new) and `skills/brainstorm/SKILL.md` (fleshed out from its Phase 0 stub), with concrete inputs/outputs/permissions/escalation.
