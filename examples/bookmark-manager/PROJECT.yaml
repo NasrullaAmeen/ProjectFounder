@@ -1,12 +1,13 @@
 # Founded via workflows/new-project.md against idea.md in this directory.
-# See NOTES.md for what running the workflow actually surfaced.
+# Taken through Discovery + Brainstorm via workflows/brainstorm.md.
+# See NOTES.md for what running both workflows actually surfaced.
 
 project:
   id: bookmark-manager
   name: Bookmark Manager
   version: "0.1"
-  status: "Founded as a worked example of workflows/new-project.md (§ 123)."
-  lifecycle: CLASSIFIED
+  status: "Founded via workflows/new-project.md (§ 123); Discovery + Brainstorm run via workflows/brainstorm.md (Phase 1)."
+  lifecycle: DISCOVERY
   mode:
   intent: CREATE
   types:
@@ -27,5 +28,5 @@ project:
   research_depth: L1
   documentation_depth: STANDARD
   created_at: "2026-09-08"
-  updated_at: "2026-09-08"
+  updated_at: "2026-09-10"
   default_autonomy: L1

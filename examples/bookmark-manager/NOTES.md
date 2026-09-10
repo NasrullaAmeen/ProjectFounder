@@ -49,3 +49,29 @@ Rather than extending § 28's enumerated list unilaterally (silent drift) or con
 ## Takeaway
 
 The capture/classify/validate mechanics in `workflows/new-project.md` held up on first exercise. Both gaps this exercise surfaced were spec-level (a missing artifact field, a taxonomy that didn't cover its own canonical example) rather than workflow-procedure bugs — which is the value of actually running a worked example instead of only reading the contracts.
+
+---
+
+# Notes: running workflows/brainstorm.md (Phase 1 — Discovery + Brainstorm)
+
+Second exercise of this directory, now testing the first Phase 1 workflow against the same project (`docs/TASKS.md`: exercise `workflows/brainstorm.md` end-to-end). Input: this directory's existing `idea.md` and `PROJECT.yaml` (lifecycle `CLASSIFIED`, intent `CREATE`). Output: `ASSUMPTIONS.md`, `CONSTRAINTS.md`, `OPEN-QUESTIONS.md`, `FEATURES.md` added to this directory; `PROJECT.yaml` advanced to lifecycle `DISCOVERY`.
+
+## What worked
+
+- The precondition check was clean: `lifecycle: CLASSIFIED` and `intent: CREATE` both held, so the workflow proceeded without needing the (unimplemented) Explore step.
+- Discovery's critical-question derivation followed § 123 Step 4's own canonical question set for this exact idea (who are the users, is self-hosting mandatory, should AI work locally, is the browser extension required for MVP, is auth required) — each resolved cleanly into exactly one of an inline answer (self-hosting: idea says "optional," so hosted is primary and self-hosting must stay a real option — `CONSTRAINTS.md`), an assumption (`ASSUMPTIONS.md` A1/A2), or an open question (`OPEN-QUESTIONS.md` Q1/Q2) — no question ended up with zero or more than one resolution.
+- Brainstorm's candidate list matched § 123 Step 5's own canonical list for this idea almost exactly (Capture, Organization, Tags, Collections, Search, Semantic Search, AI Summaries, Browser Extension, PWA, Import, Export, Sharing, Authentication, Sync, Backup, Self-hosting) — confirming that "adjacent, not literally stated" candidates (AI Summaries, Sharing) are within scope for Brainstorm, not a "no speculative generation" (`AGENTS.md`) violation, since the spec's own canonical worked example already includes them.
+- No candidate contradicted a `CONSTRAINTS.md` entry, so `agents/brainstorm-agent.md`'s "drop and note" escalation rule never fired on this run — untested by this exercise.
+- The lifecycle transition `CLASSIFIED -> DISCOVERY` matched `config/lifecycle.yaml` with no ambiguity.
+
+## What broke: the discovery procedure skipped straight past "ask the human"
+
+`AGENT.md`'s own reasoning process says "ask only critical discovery questions; let unanswered questions become assumptions/open questions" — which implies the agent should actually ask a live user the critical questions first, and only fall back to an assumption or open question when no interactive answer is available. The first draft of `skills/discovery/SKILL.md`'s procedure skipped that step entirely: idea text first, then straight to assumption-or-open-question, with no step in between for actually asking anyone. That happened to be harmless for *this* exercise (a worked example with no live user to ask, exactly the fallback case), but would have been wrong for a real interactive session — it would silently guess or park a question as "open" instead of just asking, which is worse than either.
+
+## Fixed: added the missing interactive-ask step
+
+`skills/discovery/SKILL.md`'s procedure now reads: idea text first → ask the human directly if one is available in-session → assumption if a low-risk default exists → open question otherwise. The fallback-only case (no live user, e.g. this worked example) still works exactly as before.
+
+## Takeaway
+
+Same pattern as the Phase 0 exercises: the workflow's own step sequence (precondition-check → discover → brainstorm → advance-lifecycle) held up fine, and the real gap was one level down, in a skill's procedure that under-specified how a step actually resolves in the common case (a live user) versus the edge case (no user) it happened to be tested against first. Worth remembering for the next Phase 1 slice (Requirements/Feature Discovery/Gap Analysis): check that a procedure's steps make sense for *both* an interactive run and an offline worked-example run, not just whichever one gets exercised first.

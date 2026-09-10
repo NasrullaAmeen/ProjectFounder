@@ -34,9 +34,20 @@ Complete for its declared scope, agent-executed per `docs/DECISIONS.md` D005 (no
 - [x] `done` — Stress-tested the § 163.2 Explore branch with a second, non-`CREATE` example: `examples/notes-app-extend/`. Found and fixed a real gap — § 25's lifecycle had no state for the Explore step — via § 163.12 (`docs/DECISIONS.md` D009) — see `examples/notes-app-extend/NOTES.md`.
 - [x] `done` — Tried a genuinely ambiguous intent ("rebuild my app but keep some of the old code"): `examples/ambiguous-intent/`. Found and fixed a real gap — the escalation contract had no rule for `intent` itself being ambiguous (only for `types` ambiguity) — via § 163.13 (`docs/DECISIONS.md` D010) — see `examples/ambiguous-intent/NOTES.md`.
 
-## Phases 1–8
+## Phase 1 — Intelligence Core (spec § 140)
 
-Not started — see `ProjectFounder-idea.md` § 140 for the full phase list (Intelligence Core → Research → Architecture → AI/Agents → Budget/Business → Documentation → Validation → Implementation Planning). Do not jump ahead of Phase 0 (`AGENTS.md` "Follow the phase order").
+Covers Discovery, Brainstorm, Classification, Requirements, Feature Discovery, Gap Analysis. Classification (§ 28) was already built in Phase 0 (`agents/project-architect.md`) — nothing further needed there. Discovery + Brainstorm are the first slice built, since § 123's own journey runs them (Steps 4–5) immediately after Classification, without needing Research (Phase 2) first; Requirements/Feature Discovery/Gap Analysis (§ 123 Steps 8–10) run *after* Research in that same journey, so their contracts are deferred to a follow-up slice rather than built (and left unexercisable) in this one.
+
+- [x] `done` — First real Discovery/Brainstorm agent contracts: `agents/discovery-agent.md`, `agents/brainstorm-agent.md`, fleshed out with concrete inputs/outputs/permissions/escalation, plus `skills/discovery/SKILL.md` (new) and `skills/brainstorm/SKILL.md` (fleshed out from its Phase 0 stub).
+- [x] `done` — First real Phase 1 workflow + command: `workflows/brainstorm.md` (precondition-check → discover → brainstorm → advance lifecycle to `DISCOVERY`) and `commands/brainstorm.md`. Named `brainstorm` per § 143's own "Initial Workflows" list (which names `brainstorm`, not a separate `discovery` workflow).
+- [x] `done` — Decided where Brainstorm's raw candidate list lives: reused `FEATURES.md` (§ 88) marked explicitly draft/uncategorized, rather than a new `BRAINSTORM.md` artifact — see `docs/DECISIONS.md` D011.
+- [x] `done` — Exercised `workflows/brainstorm.md` end-to-end against `examples/bookmark-manager/` (the same `CLASSIFIED`, `CREATE`-intent project Phase 0 founded) — see `examples/bookmark-manager/NOTES.md` for what running it surfaced.
+- [ ] `todo` — Flesh out Requirements, Feature Discovery, and Gap Analysis agent/skill contracts (currently blank stubs — `agents/product-agent.md` for Feature Discovery, `skills/requirements/`, `skills/feature-discovery/`, `skills/gap-analysis/`). Their workflows can't be exercised end-to-end until Research (Phase 2) exists to feed them, per § 123 Steps 6–10's ordering.
+- [ ] `todo` — Feature Discovery Engine's own job once built: tier `FEATURES.md`'s draft candidates into MVP/V1/V2/Future (§ 123 Step 9) — not done by Brainstorm (D011).
+
+## Phases 2–8
+
+Not started — see `ProjectFounder-idea.md` § 140 for the full phase list (Research → Architecture → AI/Agents → Budget/Business → Documentation → Validation → Implementation Planning). Do not jump ahead of Phase 1's remaining items (`AGENTS.md` "Follow the phase order").
 
 ## Conventions
 

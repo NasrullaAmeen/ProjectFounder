@@ -6,6 +6,17 @@ This changelog tracks ProjectFounder's own development (the repo you're reading)
 
 ## [Unreleased]
 
+### Added — Phase 1 (§ 140), Discovery + Brainstorm slice
+
+- Fleshed out `agents/discovery-agent.md` and `agents/brainstorm-agent.md` (new), plus `skills/discovery/SKILL.md` (new) and `skills/brainstorm/SKILL.md` (fleshed out from its Phase 0 stub), with concrete inputs/outputs/permissions/escalation.
+- Added the first real Phase 1 workflow and command: `workflows/brainstorm.md` (precondition-check → discover → brainstorm → advance lifecycle to `DISCOVERY`) and `commands/brainstorm.md`. Named `brainstorm` per § 143's own "Initial Workflows" list.
+- Resolved where Brainstorm's raw candidate list lives — reused `FEATURES.md` (§ 88), marked explicitly draft/uncategorized, instead of a new artifact. Logged as `docs/DECISIONS.md` D011.
+- `examples/bookmark-manager/`: ran `workflows/brainstorm.md` against the existing `CLASSIFIED` project, adding `ASSUMPTIONS.md`, `CONSTRAINTS.md`, `OPEN-QUESTIONS.md`, and `FEATURES.md`, and advancing `PROJECT.yaml` to lifecycle `DISCOVERY`. See `examples/bookmark-manager/NOTES.md` for what the exercise found.
+
+### Fixed — Phase 1
+
+- `skills/discovery/SKILL.md`'s procedure skipped straight from "check the idea's own text" to "resolve as an assumption or open question," with no step for actually asking a live user — contradicting `AGENT.md`'s own reasoning process ("ask only critical discovery questions"). Found while exercising `workflows/brainstorm.md` against `examples/bookmark-manager/`. Added the missing interactive-ask step between the two.
+
 ### Added — third worked example
 
 - `examples/ambiguous-intent/`: an invented idea that plausibly fits three of § 27's intent values at once (`REBUILD`, `MIGRATE`, `EXTEND`), run through `workflows/new-project.md` specifically to try the case `docs/TASKS.md` had flagged as untried — a genuinely ambiguous intent (`idea.md`, `PROJECT.yaml`, `NOTES.md`).

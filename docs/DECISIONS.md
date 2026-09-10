@@ -338,6 +338,45 @@ decision:
     - examples/ambiguous-intent/PROJECT.yaml
 ```
 
+### D011 — Reuse FEATURES.md as the Brainstorm Engine's draft-tier output, don't add a new artifact
+
+```yaml
+decision:
+  id: D011
+  title: Brainstorm writes an explicitly-uncategorized FEATURES.md, no separate BRAINSTORM.md
+  context: >
+    Building the Phase 1 Discovery+Brainstorm slice (workflows/brainstorm.md)
+    needed a home for the Brainstorm Engine's raw candidate list (§ 123 Step 5).
+    § 88 Core Project Artifacts already names FEATURES.md, but § 123 Step 9
+    shows FEATURES.md's final shape is tiered (MVP/V1/V2/Future) by the
+    Feature Discovery Engine (§ 7.7) - not yet built (deferred per the user's
+    own Phase 1 scoping choice this round). Brainstorm's own output isn't
+    tiered at all.
+  options:
+    - Add a new BRAINSTORM.md artifact for the raw candidate list, leave FEATURES.md for Feature Discovery to create later
+    - Write the raw candidate list straight into FEATURES.md now, explicitly marked draft/uncategorized, for Feature Discovery to tier in place later
+  selected: Write into FEATURES.md now, marked draft/uncategorized
+  rationale: >
+    A separate BRAINSTORM.md would duplicate what FEATURES.md is already
+    specified to hold (§ 81 Documentation Deduplication) and repeats the
+    "generate every possible document" over-scoping § 139 forbids. Writing
+    into FEATURES.md directly, with an explicit draft/uncategorized marker
+    so it isn't mistaken for Feature Discovery's finished, tiered output,
+    keeps one canonical artifact that fills in incrementally as later
+    engines run - the same incremental-artifact pattern § 163.7's Artifact
+    Dependency Graph already assumes.
+  evidence: workflows/brainstorm.md, skills/brainstorm/SKILL.md
+  confidence: MEDIUM
+  reversibility: EASY
+  approval: RECOMMEND
+  dependencies: []
+  affected_artifacts:
+    - agents/brainstorm-agent.md
+    - skills/brainstorm/SKILL.md
+    - workflows/brainstorm.md
+    - examples/bookmark-manager/FEATURES.md
+```
+
 ## Conventions
 
 - Add a new `D0NN` entry per decision that would be non-obvious from the diff alone — not for every commit.
